@@ -6,7 +6,9 @@
 
 ## What is this mess?
 
-HyprKit is Kit's egocentric attempt at making a Hyprland theme manager that (probably) doesn't suck completely. It's powered by bottled insanity, questionable life choices, and an unhealthy amount of UwU energy. Thanks to the amazing people working on CachyOS for their amazing distro and slick default theme.
+HyprKit is Kit's egocentric attempt at making a Hyprland theme manager that (probably) doesn't suck completely. It's powered by bottled insanity, questionable life choices, and an unhealthy amount of UwU energy. 
+
+Huge thanks to the amazing people working on **CachyOS** for their incredible distro and slick default theme, and to **mylinuxforwork** for the fantastic ML4W dotfiles that inspired this chaos!
 
 Does it work? *Probably!* Will it set your computer on fire? *Hopefully not!*
 
@@ -75,7 +77,8 @@ HyprKit/
 ├── scripts/
 │   └── set-theme.sh         # The actual magic happens here
 ├── themes/
-│   └── cachyos/             # Default theme from the CachyOS team (LOTS more in the works)
+│   ├── cachyos/             # CachyOS team's beautiful default theme
+│   └── ml4w/                # ML4W dotfiles theme (mylinuxforwork)
 │       ├── theme.toml       # Theme metadata
 │       ├── hypr/            # Hyprland configs
 │       ├── waybar/          # Waybar configs  
@@ -163,3 +166,10 @@ This project is licensed under the world famous "Do Whatever The Hell You Want, 
 ```
 
 **P.S.** - Jokes aside, I really do hope you enjoy this dumb little experiment
+
+## Credits & Thanks 🙏
+
+- **CachyOS Team** - For their incredible distribution and the beautiful default theme that ships with it
+- **mylinuxforwork** - For the amazing ML4W dotfiles project that inspired much of this work: https://github.com/mylinuxforwork/dotfiles
+- **The Hyprland Community** - For building such an awesome compositor
+- **Everyone who contributes themes** - Well that is if anyone decides to X3

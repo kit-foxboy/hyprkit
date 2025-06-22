@@ -38,16 +38,25 @@ restore_backup() {
     
     echo "Restoring backup: $latest_backup"
     
+    # First, clean up current theme components to avoid conflicts
+    if [ -L "current" ]; then
+        echo "Cleaning up current theme components..."
+        for file in current/*; do
+            if [ -d "$file" ] && [[ "$(basename "$file")" != "theme.toml" ]]; then
+                config_name=$(basename "$file")
+                if [ -e "$HOME/.config/$config_name" ]; then
+                    echo "Removing current $config_name..."
+                    rm -rf "$HOME/.config/$config_name"
+                fi
+            fi
+        done
+    fi
+    
     # Restore each backed up configuration
     for item in "backup/$latest_backup"/*; do
         if [ -d "$item" ]; then
             config_name=$(basename "$item")
             echo "Restoring $config_name..."
-            
-            # Remove current config and restore backup
-            if [ -e "$HOME/.config/$config_name" ]; then
-                rm -rf "$HOME/.config/$config_name"
-            fi
             cp -r "$item" "$HOME/.config/"
         fi
     done
@@ -56,7 +65,37 @@ restore_backup() {
     rm -rf backup/$latest_backup
     
     echo "Backup restored successfully"
-    hyprctl reload
+    
+    # Ask about logout for backup restore too
+    echo ""
+    read -p "Would you like to log out to ensure all changes take effect? (y/N): " logout_choice
+    
+    case "$logout_choice" in
+        [Yy]|[Yy][Ee][Ss])
+            echo "Logging out in 3 seconds..."
+            sleep 1
+            echo "3..."
+            sleep 1
+            echo "2..."
+            sleep 1
+            echo "1..."
+            sleep 1
+            
+            if command -v hyprctl >/dev/null 2>&1; then
+                hyprctl dispatch exit
+            elif command -v loginctl >/dev/null 2>&1; then
+                loginctl terminate-user "$USER"
+            elif command -v pkill >/dev/null 2>&1; then
+                pkill -KILL -u "$USER"
+            else
+                echo "Could not find a logout command. Please log out manually."
+            fi
+            ;;
+        *)
+            echo "Skipping logout. You may need to log out manually for all changes to take effect."
+            hyprctl reload
+            ;;
+    esac
 }
 
 link_theme() {
@@ -73,6 +112,45 @@ link_theme() {
             ln -sf "$THEME_DIR/$( basename "$file")" "$HOME/.config/$(basename "$file")"
         fi
     done
+}
+
+# Function to ask user about logout
+ask_logout() {
+    echo ""
+    echo "Theme applied successfully!"
+    echo ""
+    echo "Note: Some theme changes (especially autostart scripts and system-wide configs)"
+    echo "require a full logout/login to take effect properly."
+    echo ""
+    read -p "Would you like to log out now? (y/N): " logout_choice
+    
+    case "$logout_choice" in
+        [Yy]|[Yy][Ee][Ss])
+            echo "Logging out in 3 seconds..."
+            sleep 1
+            echo "3..."
+            sleep 1
+            echo "2..."
+            sleep 1
+            echo "1..."
+            sleep 1
+            
+            # Try different logout methods depending on what's available
+            if command -v hyprctl >/dev/null 2>&1; then
+                hyprctl dispatch exit
+            elif command -v loginctl >/dev/null 2>&1; then
+                loginctl terminate-user "$USER"
+            elif command -v pkill >/dev/null 2>&1; then
+                pkill -KILL -u "$USER"
+            else
+                echo "Could not find a logout command. Please log out manually."
+            fi
+            ;;
+        *)
+            echo "Skipping logout. You may need to log out manually for all changes to take effect."
+            hyprctl reload
+            ;;
+    esac
 }
 
 # Handle command line arguments
@@ -128,4 +206,5 @@ mkdir -p "$BACKUP_DIR"
 # Link the theme files to the hyperland config directory
 link_theme "$APP_DIR/current"
 
-hyprctl reload
+# Ask user about logout instead of just reloading
+ask_logout
