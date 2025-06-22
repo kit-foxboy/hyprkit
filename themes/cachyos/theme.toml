@@ -1,0 +1,5 @@
+theme_name = "CachyOS"
+theme_description = "A modern and sleek theme for CachyOS, designed to enhance the user experience with a focus on aesthetics and usability."
+theme_version = "1.0.0"
+theme_author = "CachyOS Team"
+theme_license = "GPL-3.0"
