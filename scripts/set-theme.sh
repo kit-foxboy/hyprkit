@@ -11,9 +11,10 @@ show_usage() {
 
 # Function to get active theme name
 get_active_theme() {
-    if [ -L "current" ]; then
+    CURRENT_LINK="$HOME/.config/HyprKit/current"
+    if [ -L "$CURRENT_LINK" ]; then
         # Get the target of the symlink and extract theme name
-        target=$(readlink current)
+        target=$(readlink "$CURRENT_LINK")
         theme_name=$(basename "$target")
         echo "Active theme: $theme_name"
     else
@@ -23,53 +24,60 @@ get_active_theme() {
 
 # Function to restore most recent backup
 restore_backup() {
-    if [ ! -d "backup" ]; then
-        echo "No backup directory found"
+    BACKUP_DIR="$HOME/.config/HyprKit"
+    
+    if [ ! -d "$BACKUP_DIR" ]; then
+        echo "No HyprKit backup directory found at $BACKUP_DIR"
         exit 1
     fi
     
     # Find the most recent backup directory
-    latest_backup=$(ls -1t backup/ | head -n 1)
+    latest_backup=$(ls -1t "$BACKUP_DIR" | grep "backup_" | head -n 1)
     
     if [ -z "$latest_backup" ]; then
-        echo "No backups found"
+        echo "No backups found in $BACKUP_DIR"
         exit 1
     fi
     
     echo "Restoring backup: $latest_backup"
     
-    # First, clean up current theme components to avoid conflicts
-    if [ -L "current" ]; then
-        echo "Cleaning up current theme components..."
-        for file in current/*; do
-            if [ -d "$file" ] && [[ "$(basename "$file")" != "theme.toml" ]]; then
-                config_name=$(basename "$file")
-                if [ -e "$HOME/.config/$config_name" ]; then
-                    echo "Removing current $config_name..."
-                    rm -rf "$HOME/.config/$config_name"
-                fi
-            fi
-        done
-        
-        # Remove the current symlink
-        rm current
+    # Remove current symlink if it exists
+    CURRENT_LINK="$HOME/.config/HyprKit/current"
+    if [ -L "$CURRENT_LINK" ]; then
+        rm "$CURRENT_LINK"
     fi
     
-    # Restore each backed up configuration
-    for item in "backup/$latest_backup"/*; do
-        if [ -d "$item" ]; then
-            config_name=$(basename "$item")
-            echo "Restoring $config_name..."
-            cp -r "$item" "$HOME/.config/"
+    # Clear out current .config contents (except HyprKit folder)
+    echo "Clearing current configuration..."
+    for item in "$HOME/.config"/*; do
+        if [ -e "$item" ]; then
+            item_name=$(basename "$item")
+            if [[ "$item_name" != "HyprKit" ]]; then
+                echo "Removing current $item_name..."
+                rm -rf "$item"
+            fi
+        fi
+    done
+    
+    # Restore all backed up configuration
+    echo "Restoring complete configuration..."
+    for item in "$BACKUP_DIR/$latest_backup"/*; do
+        if [ -e "$item" ]; then
+            item_name=$(basename "$item")
+            # Skip the theme state file during this copy
+            if [[ "$item_name" != ".hyprkit_theme_state" ]]; then
+                echo "Restoring $item_name..."
+                cp -r "$item" "$HOME/.config/"
+            fi
         fi
     done
     
     # Restore the theme state if it was backed up
-    if [ -f "backup/$latest_backup/.hyprkit_theme_state" ]; then
-        theme_target=$(cat "backup/$latest_backup/.hyprkit_theme_state")
+    if [ -f "$BACKUP_DIR/$latest_backup/.hyprkit_theme_state" ]; then
+        theme_target=$(cat "$BACKUP_DIR/$latest_backup/.hyprkit_theme_state")
         if [ -d "$theme_target" ]; then
             echo "Restoring theme state: $(basename "$theme_target")"
-            ln -s "$theme_target" current
+            ln -s "$theme_target" "$HOME/.config/HyprKit/current"
         else
             echo "Warning: Backed up theme no longer exists: $theme_target"
             echo "No theme is currently active"
@@ -78,8 +86,8 @@ restore_backup() {
         echo "No theme state found in backup (pre-HyprKit backup)"
     fi
 
-    # clean up the current backup folder
-    rm -rf backup/$latest_backup
+    # Clean up the restored backup folder
+    rm -rf "$BACKUP_DIR/$latest_backup"
     
     echo "Backup restored successfully"
     
@@ -117,12 +125,22 @@ restore_backup() {
 
 link_theme() {
     THEME_DIR="$1"
-    # Link the new theme to the hyperland config directory
-    for file in current/*; do
-        if [[ "$(basename "$file")" != "theme.toml" ]]; then
+    CURRENT_LINK="$HOME/.config/HyprKit/current"
+    
+    # Symlink all folders in the current theme to .config, overwriting existing
+    for file in "$CURRENT_LINK"/*; do
+        if [ -d "$file" ] && [[ "$(basename "$file")" != "theme.toml" ]]; then
             config_name=$(basename "$file")
+            target_path="$HOME/.config/$config_name"
+            
+            # Remove existing config if it exists (file or directory)
+            if [ -e "$target_path" ] || [ -L "$target_path" ]; then
+                echo "Removing existing $config_name..."
+                rm -rf "$target_path"
+            fi
+            
             echo "Linking $config_name..."
-            ln -sf "$THEME_DIR/$(basename "$file")" "$HOME/.config/$config_name"
+            ln -sf "$THEME_DIR/$(basename "$file")" "$target_path"
         fi
     done
 }
@@ -202,38 +220,40 @@ APP_DIR="$(dirname "$(dirname "$(realpath "$0")")")"
 
 # Get current datetime for backup folder name
 BACKUP_DATE=$(date +"%Y%m%d_%H%M%S")
-BACKUP_DIR="backup/backup_$BACKUP_DATE"
+BACKUP_DIR="$HOME/.config/HyprKit/backup_$BACKUP_DATE"
+CURRENT_LINK="$HOME/.config/HyprKit/current"
 
-# Create backup directory
+# Create HyprKit directory and backup directory
+mkdir -p "$HOME/.config/HyprKit"
 mkdir -p "$BACKUP_DIR"
 
-# Backup current theme configs
-if [ -L "current" ]; then
-    echo "Backing up current theme configurations..."
-    for file in current/*; do
-        if [ -d "$file" ] && [[ "$(basename "$file")" != "theme.toml" ]]; then
-            config_name=$(basename "$file")
-            if [ -d "$HOME/.config/$config_name" ]; then
-                echo "Backing up $config_name..."
-                mv "$HOME/.config/$config_name" "$BACKUP_DIR/"
-            fi
+# Backup ALL config folders (complete snapshot)
+echo "Creating complete backup of ~/.config..."
+for item in "$HOME/.config"/*; do
+    if [ -e "$item" ]; then
+        item_name=$(basename "$item")
+        # Skip our own backup directory to avoid recursion
+        if [[ "$item_name" != "HyprKit" ]]; then
+            echo "Backing up $item_name..."
+            cp -r "$item" "$BACKUP_DIR/"
         fi
-    done
-    
-    # Backup the current symlink state
-    current_target=$(readlink current)
+    fi
+done
+
+# Backup the current symlink state if it exists
+if [ -L "$CURRENT_LINK" ]; then
+    current_target=$(readlink "$CURRENT_LINK")
     echo "$current_target" > "$BACKUP_DIR/.hyprkit_theme_state"
     echo "Backed up current theme state: $(basename "$current_target")"
-    
     # Remove the existing symlink
-    rm current
+    rm "$CURRENT_LINK"
 fi
 
 # Create new symlink to the selected theme
-ln -s "./dotfiles/$THEME_NAME" current
+ln -s "$APP_DIR/dotfiles/$THEME_NAME" "$CURRENT_LINK"
 
 # Link the new theme files to the config directory
-link_theme "$APP_DIR/current"
+link_theme "$APP_DIR/dotfiles/$THEME_NAME"
 
 # Ask user about logout instead of just reloading
 ask_logout
