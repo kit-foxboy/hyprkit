@@ -50,6 +50,9 @@ restore_backup() {
                 fi
             fi
         done
+        
+        # Remove the current symlink
+        rm current
     fi
     
     # Restore each backed up configuration
@@ -60,6 +63,20 @@ restore_backup() {
             cp -r "$item" "$HOME/.config/"
         fi
     done
+    
+    # Restore the theme state if it was backed up
+    if [ -f "backup/$latest_backup/.hyprkit_theme_state" ]; then
+        theme_target=$(cat "backup/$latest_backup/.hyprkit_theme_state")
+        if [ -d "$theme_target" ]; then
+            echo "Restoring theme state: $(basename "$theme_target")"
+            ln -s "$theme_target" current
+        else
+            echo "Warning: Backed up theme no longer exists: $theme_target"
+            echo "No theme is currently active"
+        fi
+    else
+        echo "No theme state found in backup (pre-HyprKit backup)"
+    fi
 
     # clean up the current backup folder
     rm -rf backup/$latest_backup
@@ -100,16 +117,12 @@ restore_backup() {
 
 link_theme() {
     THEME_DIR="$1"
-    # copy the theme to the hyperland config directory
+    # Link the new theme to the hyperland config directory
     for file in current/*; do
-        # check if a folder already exists in the config directory
-        if [ -d "$HOME/.config/$(basename "$file")" ]; then
-            # move the existing folder to the backup directory
-            mv "$HOME/.config/$(basename "$file")" "$BACKUP_DIR/"
-        fi
-
         if [[ "$(basename "$file")" != "theme.toml" ]]; then
-            ln -sf "$THEME_DIR/$( basename "$file")" "$HOME/.config/$(basename "$file")"
+            config_name=$(basename "$file")
+            echo "Linking $config_name..."
+            ln -sf "$THEME_DIR/$(basename "$file")" "$HOME/.config/$config_name"
         fi
     done
 }
@@ -179,22 +192,13 @@ case "$1" in
 esac
 
 # check if the theme directory exists
-if [ ! -d "./themes/$1" ]; then
+if [ ! -d "./dotfiles/$1" ]; then
     echo "Theme '$1' does not exist."
     exit 1
 fi
 
 THEME_NAME="$1"
 APP_DIR="$(dirname "$(dirname "$(realpath "$0")")")"
-
-# check if 'current' symlink exists
-if [ -L "current" ]; then
-    # remove the existing symlink
-    rm current
-fi
-
-# create a new symlink to the selected theme
-ln -s "./themes/$THEME_NAME" current
 
 # Get current datetime for backup folder name
 BACKUP_DATE=$(date +"%Y%m%d_%H%M%S")
@@ -203,7 +207,32 @@ BACKUP_DIR="backup/backup_$BACKUP_DATE"
 # Create backup directory
 mkdir -p "$BACKUP_DIR"
 
-# Link the theme files to the hyperland config directory
+# Backup current theme configs
+if [ -L "current" ]; then
+    echo "Backing up current theme configurations..."
+    for file in current/*; do
+        if [ -d "$file" ] && [[ "$(basename "$file")" != "theme.toml" ]]; then
+            config_name=$(basename "$file")
+            if [ -d "$HOME/.config/$config_name" ]; then
+                echo "Backing up $config_name..."
+                mv "$HOME/.config/$config_name" "$BACKUP_DIR/"
+            fi
+        fi
+    done
+    
+    # Backup the current symlink state
+    current_target=$(readlink current)
+    echo "$current_target" > "$BACKUP_DIR/.hyprkit_theme_state"
+    echo "Backed up current theme state: $(basename "$current_target")"
+    
+    # Remove the existing symlink
+    rm current
+fi
+
+# Create new symlink to the selected theme
+ln -s "./dotfiles/$THEME_NAME" current
+
+# Link the new theme files to the config directory
 link_theme "$APP_DIR/current"
 
 # Ask user about logout instead of just reloading

@@ -33,7 +33,7 @@ list_themes() {
     echo -e "${YELLOW}🦊 Available Themes:${NC}"
     echo ""
     local count=1
-    for theme in themes/*/; do
+    for theme in dotfiles/*/; do
         if [ -d "$theme" ]; then
             theme_name=$(basename "$theme")
             echo -e "  ${GREEN}$count)${NC} $theme_name ${CYAN}✨${NC}"
@@ -70,22 +70,42 @@ set_theme() {
     show_header
     list_themes
     
-    echo -e "${YELLOW}Enter theme name (or 'b' to go back):${NC}"
-    read -p "> " theme_choice
+    echo -e "${YELLOW}Enter theme number (or 'b' to go back):${NC}"
+    read -p "🦊 > " theme_choice
     
     if [[ "$theme_choice" == "b" ]]; then
         return
     fi
     
-    if [[ -z "$theme_choice" ]]; then
-        echo -e "${RED}That's not a theme! SMH my head${NC}"
+    # Check if input is a number
+    if ! [[ "$theme_choice" =~ ^[0-9]+$ ]]; then
+        echo -e "${RED}That's not a number! Kit's confused! 🦊❓${NC}"
+        read -p "Press Enter to continue..."
+        return
+    fi
+    
+    # Get the theme name based on the number
+    local count=1
+    local selected_theme=""
+    for theme in dotfiles/*/; do
+        if [ -d "$theme" ]; then
+            if [ "$count" -eq "$theme_choice" ]; then
+                selected_theme=$(basename "$theme")
+                break
+            fi
+            ((count++))
+        fi
+    done
+    
+    if [[ -z "$selected_theme" ]]; then
+        echo -e "${RED}Invalid number. To theme jail you go!${NC}"
         read -p "Press Enter to continue..."
         return
     fi
     
     echo ""
-    echo -e "${CYAN}Kit's applying theme: $theme_choice ✨🦊${NC}"
-    ./scripts/set-theme.sh "$theme_choice"
+    echo -e "${CYAN}Kit's applying theme: $selected_theme ✨🦊${NC}"
+    ./scripts/set-theme.sh "$selected_theme"
     
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}Theme set successfully!${NC}"
@@ -101,10 +121,35 @@ restore_backup() {
     show_header
     echo -e "${YELLOW}Kit's digging up the most recent backup... 🦊🔍${NC}"
     echo ""
+    
+    # Ask for confirmation before proceeding
+    echo -e "${YELLOW}This will restore your previous configuration and may change your current theme.${NC}"
+    read -p "Are you sure you want to continue? (y/N): " confirm
+    
+    case "$confirm" in
+        [Yy]|[Yy][Ee][Ss])
+            echo ""
+            echo -e "${CYAN}Proceeding with restore...${NC}"
+            ;;
+        *)
+            echo -e "${PURPLE}You're right, your theme right now is fine just the way it is!${NC}"
+            read -p "Press Enter to continue..."
+            return
+            ;;
+    esac
+    
     ./scripts/set-theme.sh --restore
     
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}Backup restored successfully! Was there ever any dobut?${NC}"
+        
+        # check if we need to remove any orphaned symlinks
+        if [ -L "current" ]; then
+            if [ ! -e "current" ]; then
+                echo -e "${YELLOW}Cleaning up broken current symlink...${NC}"
+                rm current
+            fi
+        fi
     else
         echo -e "${RED}Failed to restore backup! Kit's shiny new toy needs work...${NC}"
     fi
@@ -186,7 +231,7 @@ main() {
 }
 
 # Check if we're in the right directory
-if [ ! -d "themes" ] || [ ! -f "scripts/set-theme.sh" ]; then
+if [ ! -d "dotfiles" ] || [ ! -f "scripts/set-theme.sh" ]; then
     echo -e "${RED}🦊?? Kit's lost (shocker)! Please run this script from the HyprKit root directory${NC}"
     exit 1
 fi
