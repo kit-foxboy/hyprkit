@@ -4,11 +4,11 @@
 
 ---
 
-## What is this mess?
+## What is this thingie?
 
-HyprKit is Kit's egocentric attempt at making a Hyprland theme manager that (probably) doesn't suck completely. It's powered by bottled insanity, questionable life choices, and an unhealthy amount of UwU energy. 
+HyprKit is my egocentric attempt at making a Hyprland theme manager that (probably) doesn't suck completely. It's powered by bottled insanity, questionable life choices, and an unhealthy amount of UwU energy. 
 
-Huge thanks to the amazing people working on **CachyOS** for their incredible distro and slick default theme, and to **mylinuxforwork** for the fantastic ML4W dotfiles that inspired this chaos!
+Huge thanks to the amazing people working on **CachyOS** for their incredible distro and slick default theme, and to **mylinuxforwork** for the fantastic ML4W dotfiles that inspired this dubious endeavor!
 
 Does it work? *Probably!* Will it set your computer on fire? *Hopefully not!*
 
@@ -25,6 +25,9 @@ Does it work? *Probably!* Will it set your computer on fire? *Hopefully not!*
 - 🎨 **Theme Switching** - Apply themes instantly
 - 📋 **Active Theme Display** - See what disaster you're currently running
 - ⏪ **Backup & Restore** - Because indecisiveness is a way of life
+- 🌈 **Dynamic Window Shaders** - Each app gets its own vibe (NEW!)
+- 🎮 **Ambient Screen Effects** - From coding circuitry to arcade nostalgia
+- 🖥️ **Smart Shader Switching** - Your terminal looks techy, your games look retro
 - ✨ **ASCII Art** - Because why not add more visual noise?
 
 ## Installation (AKA "How to let me infect your system with silliness")
@@ -42,7 +45,7 @@ Does it work? *Probably!* Will it set your computer on fire? *Hopefully not!*
    chmod +x scripts/set-theme.sh
    ```
 
-3. **Run Kit's masterpiece:**
+3. **Run my masterpiece:**
    ```bash
    ./hyprkit.sh
    ```
@@ -69,6 +72,48 @@ Does it work? *Probably!* Will it set your computer on fire? *Hopefully not!*
 ./scripts/set-theme.sh --help
 ```
 
+## Dynamic Shader System (The Cool New Toy!)
+
+**What the hell is this?** Kit got bored and decided each application should have its own personality through screen shaders. Because apparently normal desktop environments are for peasants.
+
+### Shader Personalities 🎭
+
+- **🌱 Cyber Green** - For coding apps (VS Code, Neovim, etc.)
+  - *Vibe*: Subtle circuitry patterns that whisper "I think I sort of remember the matrix"
+  
+- **⚡ Electric Blue** - For browsers (Firefox, Chrome, etc.)  
+  - *Vibe*: Blade Runner neon marquee because browsing should feel like a window into all things
+  
+- **🏆 Auroran Gold** - For file managers (Thunar, Nautilus, etc.)
+  - *Vibe*: Luxury gradient that makes organizing files feel like a holographic projection
+  
+- **💜 Neon Purple** - For communication apps (Discord, Telegram, etc.)
+  - *Vibe*: Mystical purple aura so you can chill when you trade furry [REDACTED] or roleplay [REDACTED]ing your homies
+  
+- **🎮 Ambient Pink** - For gaming apps (Steam, Lutris, etc.)
+  - *Vibe*: Warm arcade cabinet glow, I'm not old, you are!
+  
+- **🖥️ Electric Cyan** - For terminals (Kitty, Alacritty, etc.)
+  - *Vibe*: Clean terminal glow that thrums with potential
+
+### Using Slim Shader
+
+```bash
+# Start the shader monitoring daemon, first one I've ever made!
+./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh start
+
+# Check if the shader robot is actually working
+./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh status
+
+# Test shader on whatever window you're currently staring at
+./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh test
+
+# Make it stop, I'm admittedly a little ostentatious
+./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh stop
+```
+
+**Pro Tip**: The system automatically detects what app you're using and applies the matching shader. It's like having a personal desktop stylist, but it's called a daemon so it's 100x cooler
+
 ## Directory Structure (Leaves actual theme structure up to the designer)
 
 ```
@@ -90,7 +135,7 @@ HyprKit/
 
 ## How It Works
 
-1. **Symlink Magic** - Kit creates a `current` symlink pointing to your chosen theme
+1. **Symlink Magic** - Creates a `current` symlink pointing to your chosen theme
 2. **Config Backup** - Your existing configs get safely tucked away (with timestamps!)
 3. **Theme Application** - New configs get linked to `~/.config/`
 4. **Hyprctl Reload** - Hyprland gets told about the changes
@@ -101,7 +146,7 @@ HyprKit/
 1. Create a new directory in `themes/`
 2. Add your config directories (hypr, waybar, wofi, etc.)
 3. Include a `theme.toml` file (currently decorative, but I have plans!)
-4. Cross your fingers and hope I doesn't break it
+4. Cross your fingers and hope I don't break it
 
 Example theme structure:
 ```
@@ -116,7 +161,7 @@ themes/your-awesome-theme/
 ## Planned Features (Kit's Delusional Ambitions)
 
 - 🎨 **Automatic GTK Theme Matching** - Because consistency is overrated
-- 📦 **Package Requirements & Auto-Install** - Let Kit handle your dependencies (what could go wrong giving my script root perms?)
+- 📦 **Package Requirements & Auto-Install** - Let me handle your dependencies (what could go wrong giving my script root perms?)
 - 🔧 **Theme Validation** - Make sure themes aren't completely broken before applying them
 - 🌈 **More ASCII Art** - Because clearly there's not enough visual chaos
 - 🎵 **Sound Effects** - Because why shouldn't theme switching go "boop"?
@@ -125,8 +170,8 @@ themes/your-awesome-theme/
 
 - **Hyprland** - Obviously, since this is a Hyprland theme manager
 - **GTK** - Optional if Gnome themes are on the menu
-- **Bash** - For running Kit's beautiful scripts
-- **Working Brain Cells** - Optional, Kit doesn't have many either
+- **Bash** - For running my beautiful scripts
+- **Working Brain Cells** - Optional, I doesn't have many either
 
 ## FAQ
 
@@ -160,7 +205,7 @@ This project is licensed under the world famous "Do Whatever The Hell You Want, 
 ```
          /\     /\  
         (  \\_//  ) 
-         (  o.o  ) < Thanks for reading this disaster!
+         (  o.o  ) < Thanks for reading this product of really bad insomnia!
           \  ^  /    Now go make your desktop foxy! 🦊✨
            -----   
 ```
