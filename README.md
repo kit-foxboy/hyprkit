@@ -74,45 +74,46 @@ Does it work? *Probably!* Will it set your computer on fire? *Hopefully not!*
 
 ## Dynamic Shader System (The Cool New Toy!)
 
-**What the hell is this?** Kit got bored and decided each application should have its own personality through screen shaders. Because apparently normal desktop environments are for peasants.
+NOPE NEVER MIND. While cool in theory, spending long periods of time with it revealed it to be more obnoxious than anything. Research into binding tints to a window or making it subtle enough to not get annoying after a while is required.
 
-### Shader Personalities 🎭
+~~**What the hell is this?** Kit got bored and decided each application should have its own personality through screen shaders. Because apparently normal desktop environments are for peasants.~~
 
-- **🌱 Cyber Green** - For coding apps (VS Code, Neovim, etc.)
-  - *Vibe*: Subtle circuitry patterns that whisper "I think I sort of remember the matrix"
+~~### Shader Personalities 🎭~~
+
+~~- **🌱 Cyber Green** - For coding apps (VS Code, Neovim, etc.)
+  - *Vibe*: Subtle circuitry patterns that whisper "I think I sort of remember the matrix"~~
   
-- **⚡ Electric Blue** - For browsers (Firefox, Chrome, etc.)  
+~~- **⚡ Electric Blue** - For browsers (Firefox, Chrome, etc.)~~  
   - *Vibe*: Blade Runner neon marquee because browsing should feel like a window into all things
   
-- **🏆 Auroran Gold** - For file managers (Thunar, Nautilus, etc.)
-  - *Vibe*: Luxury gradient that makes organizing files feel like a holographic projection
+~~- **🏆 Auroran Gold** - For file managers (Thunar, Nautilus, etc.)~~
+  ~~- *Vibe*: Luxury gradient that makes organizing files feel like a holographic projection~~
   
-- **💜 Neon Purple** - For communication apps (Discord, Telegram, etc.)
-  - *Vibe*: Mystical purple aura so you can chill when you trade furry [REDACTED] or roleplay [REDACTED]ing your homies
+~~- **💜 Neon Purple** - For communication apps (Discord, Telegram, etc.)~~
+  ~~- *Vibe*: Mystical purple aura so you can chill when you trade furry [REDACTED] or roleplay [REDACTED]ing your homies~~
   
-- **🎮 Ambient Pink** - For gaming apps (Steam, Lutris, etc.)
-  - *Vibe*: Warm arcade cabinet glow, I'm not old, you are!
+~~- **🎮 Ambient Pink** - For gaming apps (Steam, Lutris, etc.)~~
+  ~~- *Vibe*: Warm arcade cabinet glow, I'm not old, you are!~~
   
-- **🖥️ Electric Cyan** - For terminals (Kitty, Alacritty, etc.)
-  - *Vibe*: Clean terminal glow that thrums with potential
+~~- **🖥️ Electric Cyan** - For terminals (Kitty, Alacritty, etc.)~~
+  ~~- *Vibe*: Clean terminal glow that thrums with potential~~
 
-### Using Slim Shader
+~~### Using Slim Shader~~
 
-```bash
-# Start the shader monitoring daemon, first one I've ever made!
-./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh start
+~~```bash~~
+~~# Start the shader monitoring daemon, first one I've ever made!~~
+~~./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh start~~
 
-# Check if the shader robot is actually working
-./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh status
+~~# Check if the shader robot is actually working~~
+~~./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh status~~
 
-# Test shader on whatever window you're currently staring at
-./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh test
+~~# Test shader on whatever window you're currently staring at~~
+~~./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh test~~
 
-# Make it stop, I'm admittedly a little ostentatious
-./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh stop
-```
+~~# Make it stop, I'm admittedly a little ostentatious~~
+~~./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh stop~~
 
-**Pro Tip**: The system automatically detects what app you're using and applies the matching shader. It's like having a personal desktop stylist, but it's called a daemon so it's 100x cooler
+~~**Pro Tip**: The system automatically detects what app you're using and applies the matching shader. It's like having a personal desktop stylist, but it's called a daemon so it's 100x cooler~~
 
 ## Directory Structure (Leaves actual theme structure up to the designer)
 

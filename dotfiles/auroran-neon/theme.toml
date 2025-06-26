@@ -40,11 +40,11 @@ border_size = 2
 gaps_in = 4
 gaps_out = 8
 rounding = 8
-font_family = "Inter"
+font_family = "Comfortaa"
 
 [gtk]
 theme_name = "Sweet-Dark"
 icon_theme = "BeautyLine"
-cursor_theme = "Bibata-Modern-Ice"
-font_name = "Inter 11"
+cursor_theme = "Bibata-Modern-Amber"
+font_name = "Comfortaa 11"
 dark_theme = true

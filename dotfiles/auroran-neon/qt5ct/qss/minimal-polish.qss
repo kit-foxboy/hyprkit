@@ -1,0 +1,233 @@
+/* Minimal Auroran Neon Widget Polish */
+/* Only styling radio buttons and checkboxes for Beautyline-like look */
+
+QRadioButton::indicator {
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    border: 2px solid #484F58;
+    background-color: #1C2128;
+}
+
+QRadioButton::indicator:checked {
+    background-color: #00FF88;
+    border-color: #00FF88;
+}
+
+QRadioButton::indicator:hover {
+    border-color: #00D4FF;
+}
+
+QCheckBox::indicator {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 2px solid #484F58;
+    background-color: #1C2128;
+}
+
+QCheckBox::indicator:checked {
+    background-color: #00FF88;
+    border-color: #00FF88;
+}
+
+QCheckBox::indicator:hover {
+    border-color: #00D4FF;
+}
+
+/* Button styling for modern look */
+QPushButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #484F58, stop:1 #30363D);
+    color: #FFFFFF;
+    border: 1px solid #484F58;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-weight: 500;
+}
+
+QPushButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #00FF88, stop:0.5 #00D4FF, stop:1 #8A2BE2);
+    border-color: #00FF88;
+    color: #0D1117;
+    font-weight: bold;
+}
+
+QPushButton:pressed {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #21262D, stop:1 #161B22);
+    border-color: #FFD700;
+    color: #FFFFFF;
+}
+
+QPushButton:default {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #00FF88, stop:1 #00D4FF);
+    border: 2px solid #00FF88;
+    color: #0D1117;
+    font-weight: bold;
+}
+
+QPushButton:disabled {
+    background-color: #161B22;
+    color: #7D8590;
+    border-color: #30363D;
+}
+
+/* Stunning gradient status bar */
+QStatusBar {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+        stop:0 #00FF88, stop:1 #FFD700);
+    color: #0D1117;
+    border-top: 1px solid #484F58;
+    padding: 4px;
+    font-weight: bold;
+}
+
+/* Title bar and menu bar styling */
+QMenuBar {
+    background-color: #21262D;
+    color: #FFD700;
+    border-bottom: 1px solid #484F58;
+}
+
+QMenuBar::item {
+    background-color: transparent;
+    color: #FFD700;
+    padding: 4px 8px;
+    border-radius: 3px;
+}
+
+QMenuBar::item:selected {
+    background-color: #30363D;
+    color: #FFD700;
+}
+
+/* Simple Qt 5.5 compatible styling */
+QDialog {
+    background-color: #0D1117;
+    color: #FFFFFF;
+}
+
+QDialog QLabel {
+    color: #FFFFFF !important;
+}
+
+QInputDialog QLabel {
+    color: #FFFFFF !important;
+}
+
+/* Force all dialog text to be white */
+QDialog * {
+    color: #FFFFFF;
+}
+
+QListWidget {
+    background-color: #1C2128;
+    color: #FFFFFF;
+    border: 1px solid #484F58;
+}
+
+QListWidget::item:selected {
+    background-color: #00FF88;
+    color: #0D1117;
+}
+
+QTreeWidget {
+    background-color: #1C2128;
+    color: #FFFFFF;
+    border: 1px solid #484F58;
+}
+
+QTreeWidget::item:selected {
+    background-color: #00FF88;
+    color: #0D1117;
+}
+
+/* Dead simple approach for file pickers */
+QLabel {
+    color: #FFFFFF;
+}
+
+QHeaderView::section {
+    background-color: #21262D;
+    color: #FFFFFF;
+    border: 1px solid #484F58;
+    padding: 4px;
+}
+
+/* Auroran Neon color flourishes - the full palette! */
+
+/* Progress bars with electric blue */
+QProgressBar {
+    background-color: #21262D;
+    border: 1px solid #484F58;
+    border-radius: 4px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+QProgressBar::chunk {
+    background-color: #00D4FF;
+    border-radius: 3px;
+}
+
+/* Sliders with neon purple accents */
+QSlider::groove:horizontal {
+    background-color: #21262D;
+    height: 6px;
+    border-radius: 3px;
+}
+
+QSlider::handle:horizontal {
+    background-color: #8A2BE2;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    margin: -5px 0;
+}
+
+QSlider::handle:horizontal:hover {
+    background-color: #FF1493;
+}
+
+/* Scroll bars with cyber green */
+QScrollBar:vertical {
+    background-color: #21262D;
+    width: 12px;
+    border-radius: 6px;
+}
+
+QScrollBar::handle:vertical {
+    background-color: #00FF88;
+    border-radius: 6px;
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background-color: #FFD700;
+}
+
+/* Tabs with cyber orange highlights */
+QTabWidget::pane {
+    background-color: #1C2128;
+    border: 1px solid #484F58;
+}
+
+QTabBar::tab {
+    background-color: #21262D;
+    color: #FFFFFF;
+    padding: 6px 12px;
+    margin-right: 2px;
+}
+
+QTabBar::tab:selected {
+    background-color: #30363D;
+    border-bottom: 2px solid #FF6B35;
+}
+
+QTabBar::tab:hover {
+    background-color: #30363D;
+    border-bottom: 2px solid #FF1493;
+}
