@@ -1,0 +1,342 @@
+/* Auroran Neon Widget Polish - Complete Theme */
+/* Beautiful cosmic styling with neon gradients and furry character! */
+
+QRadioButton::indicator {
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    border: 2px solid #484F58;
+    background-color: #1C2128;
+}
+
+QRadioButton::indicator:checked {
+    background-color: #00FF88;
+    border-color: #00FF88;
+}
+
+QRadioButton::indicator:hover {
+    border-color: #00D4FF;
+}
+
+QCheckBox::indicator {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 2px solid #484F58;
+    background-color: #1C2128;
+}
+
+QCheckBox::indicator:checked {
+    background-color: #00FF88;
+    border-color: #00FF88;
+}
+
+QCheckBox::indicator:hover {
+    border-color: #00D4FF;
+}
+
+/* Button styling with gorgeous neon gradients */
+QPushButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #484F58, stop:1 #30363D);
+    color: #FFFFFF;
+    border: 1px solid #484F58;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-weight: 500;
+}
+
+QPushButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #00FF88, stop:0.5 #00D4FF, stop:1 #8A2BE2);
+    border-color: #00FF88;
+    color: #0D1117;
+    font-weight: bold;
+}
+
+QPushButton:pressed {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #21262D, stop:1 #161B22);
+    border-color: #FFD700;
+    color: #FFFFFF;
+}
+
+QPushButton:default {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #00FF88, stop:1 #00D4FF);
+    border: 2px solid #00FF88;
+    color: #0D1117;
+    font-weight: bold;
+}
+
+QPushButton:disabled {
+    background-color: #161B22;
+    color: #7D8590;
+    border-color: #30363D;
+}
+
+/* Stunning gradient status bar */
+QStatusBar {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+        stop:0 #00FF88, stop:1 #FFD700);
+    color: #0D1117;
+    border-top: 1px solid #484F58;
+    padding: 4px;
+    font-weight: bold;
+}
+
+/* Title bar and menu bar styling */
+QMenuBar {
+    background-color: #21262D;
+    color: #FFD700;
+    border-bottom: 1px solid #484F58;
+}
+
+QMenuBar::item {
+    background-color: transparent;
+    color: #FFD700;
+    padding: 4px 8px;
+    border-radius: 3px;
+}
+
+QMenuBar::item:selected {
+    background-color: #30363D;
+    color: #FFD700;
+}
+
+/* Authentication dialogs and all dialogs with FORCED white text */
+QDialog {
+    background-color: #0D1117;
+    color: #FFFFFF !important;
+}
+
+QDialog QLabel {
+    color: #FFFFFF !important;
+}
+
+QInputDialog QLabel {
+    color: #FFFFFF !important;
+}
+
+QMessageBox QLabel {
+    color: #FFFFFF !important;
+}
+
+/* Force ALL dialog text to be white - this fixes authentication dialogs! */
+QDialog * {
+    color: #FFFFFF !important;
+}
+
+QWidget[class="QDialog"] {
+    color: #FFFFFF !important;
+}
+
+/* Text inputs in dialogs */
+QLineEdit {
+    background-color: #1C2128;
+    color: #FFFFFF;
+    border: 1px solid #484F58;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+QLineEdit:focus {
+    border-color: #00FF88;
+}
+
+QTextEdit {
+    background-color: #1C2128;
+    color: #FFFFFF;
+    border: 1px solid #484F58;
+    border-radius: 4px;
+}
+
+QListWidget {
+    background-color: #1C2128;
+    color: #FFFFFF;
+    border: 1px solid #484F58;
+}
+
+QListWidget::item:selected {
+    background-color: #00FF88;
+    color: #0D1117;
+}
+
+QTreeWidget {
+    background-color: #1C2128;
+    color: #FFFFFF;
+    border: 1px solid #484F58;
+}
+
+QTreeWidget::item:selected {
+    background-color: #00FF88;
+    color: #0D1117;
+}
+
+/* File pickers and tables */
+QLabel {
+    color: #FFFFFF;
+}
+
+QHeaderView::section {
+    background-color: #21262D;
+    color: #FFFFFF;
+    border: 1px solid #484F58;
+    padding: 4px;
+}
+
+QTableWidget {
+    background-color: #1C2128;
+    color: #FFFFFF;
+    border: 1px solid #484F58;
+    gridline-color: #484F58;
+}
+
+QTableWidget::item:selected {
+    background-color: #00FF88;
+    color: #0D1117;
+}
+
+/* Auroran Neon color flourishes - the full cosmic palette! */
+
+/* Progress bars with electric blue */
+QProgressBar {
+    background-color: #21262D;
+    border: 1px solid #484F58;
+    border-radius: 4px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+QProgressBar::chunk {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 #00D4FF, stop:1 #00FF88);
+    border-radius: 3px;
+}
+
+/* Sliders with neon purple accents */
+QSlider::groove:horizontal {
+    background-color: #21262D;
+    height: 6px;
+    border-radius: 3px;
+}
+
+QSlider::handle:horizontal {
+    background-color: #8A2BE2;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    margin: -5px 0;
+}
+
+QSlider::handle:horizontal:hover {
+    background-color: #FF1493;
+}
+
+/* Scroll bars with cyber green */
+QScrollBar:vertical {
+    background-color: #21262D;
+    width: 12px;
+    border-radius: 6px;
+}
+
+QScrollBar::handle:vertical {
+    background-color: #00FF88;
+    border-radius: 6px;
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background-color: #FFD700;
+}
+
+QScrollBar:horizontal {
+    background-color: #21262D;
+    height: 12px;
+    border-radius: 6px;
+}
+
+QScrollBar::handle:horizontal {
+    background-color: #00FF88;
+    border-radius: 6px;
+    min-width: 20px;
+}
+
+QScrollBar::handle:horizontal:hover {
+    background-color: #FFD700;
+}
+
+/* Tabs with cyber orange highlights */
+QTabWidget::pane {
+    background-color: #1C2128;
+    border: 1px solid #484F58;
+}
+
+QTabBar::tab {
+    background-color: #21262D;
+    color: #FFFFFF;
+    padding: 6px 12px;
+    margin-right: 2px;
+}
+
+QTabBar::tab:selected {
+    background-color: #30363D;
+    border-bottom: 2px solid #FF6B35;
+}
+
+QTabBar::tab:hover {
+    background-color: #30363D;
+    border-bottom: 2px solid #FF1493;
+}
+
+/* Combo boxes with auroran gold accents */
+QComboBox {
+    background-color: #21262D;
+    color: #FFFFFF;
+    border: 1px solid #484F58;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+QComboBox:hover {
+    border-color: #FFD700;
+}
+
+QComboBox::drop-down {
+    border: none;
+    background-color: #FFD700;
+    border-radius: 0 4px 4px 0;
+    width: 20px;
+}
+
+QComboBox::down-arrow {
+    image: none;
+    border: 4px solid #0D1117;
+    border-top-color: #0D1117;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
+
+/* Spin boxes */
+QSpinBox, QDoubleSpinBox {
+    background-color: #1C2128;
+    color: #FFFFFF;
+    border: 1px solid #484F58;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+QSpinBox:focus, QDoubleSpinBox:focus {
+    border-color: #00FF88;
+}
+
+/* Tool tips with cosmic style */
+QToolTip {
+    background-color: #0D1117;
+    color: #FFD700;
+    border: 1px solid #FFD700;
+    border-radius: 4px;
+    padding: 4px;
+    font-weight: bold;
+}

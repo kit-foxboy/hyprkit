@@ -3,3 +3,48 @@ theme_description = "A visually captivating theme inspired by the Sweet theme an
 theme_version = "0.1"
 theme_author = "Kit Kabbit"
 theme_license = "GPL-3.0"
+
+# ─────────────────────────────────────────────────────────────
+#                    Auroran Neon Color Palette
+# ─────────────────────────────────────────────────────────────
+
+[colors]
+# Core neon colors matching the file manager aesthetic
+electric_blue = "#00D4FF"     # Bright cyan-blue like Documents folder
+neon_purple = "#8A2BE2"       # Purple like Desktop folder  
+cyber_green = "#00FF88"       # Bright green like Downloads folder
+neon_pink = "#FF1493"         # Hot pink like Videos folder
+auroran_gold = "#FFD700"      # Golden yellow like Pictures folder
+cyber_orange = "#FF6B35"      # Orange like Pictures folder
+
+# Background colors - deep space theme
+void_black = "#0D1117"        # Deep dark background
+space_grey = "#1C2128"        # Slightly lighter grey
+surface_dark = "#21262D"      # Card/surface background
+
+# Text colors
+bright_white = "#FFFFFF"      # Primary text
+soft_white = "#F0F6FC"        # Secondary text
+dim_grey = "#7D8590"          # Muted text
+
+# Border colors for consistent theming
+border_active = "#00D4FF"     # Electric blue for active
+border_inactive = "#30363D"   # Subtle grey for inactive
+
+# ─────────────────────────────────────────────────────────────
+#                         Theme Settings
+# ─────────────────────────────────────────────────────────────
+
+[hyprland]
+border_size = 2
+gaps_in = 4
+gaps_out = 8
+rounding = 8
+font_family = "Comfortaa"
+
+[gtk]
+theme_name = "Sweet-Dark"
+icon_theme = "BeautyLine"
+cursor_theme = "Bibata-Modern-Amber"
+font_name = "Comfortaa 11"
+dark_theme = true
