@@ -1,10 +1,10 @@
 {
-    "layer": "top",
+    "layer": "bottom",
     "position": "top",
     "margin-left": 0,
     "margin-bottom": 0,
     "margin-right": 0,
-    "spacing": 5,
+    "spacing": 6,
 
     "modules-left": [
         "hyprland/workspaces",
@@ -103,16 +103,16 @@
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
         "format-icons": [
-            "",
-            "",
-            "",
-            "",
-            ""
+            "XωX",
+            "-ω-",
+            "UωU",
+            "^ω^",
+            "OωO"
         ]
     },
 
     "network": {
-        "format-wifi": "({signalStrength}%)",
+        "format-wifi": "{signalStrength}%",
         "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
         "format-linked": "{ifname} (No IP) ",
         "format": "",

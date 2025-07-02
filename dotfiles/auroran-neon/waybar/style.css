@@ -1,171 +1,280 @@
-/* ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ */
-/* ┃                 Auroran Neon Waybar Theme                  ┃ */
-/* ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/*                 Auroran Neon Waybar Theme                     */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Animations */
+/*
+rgba(0, 212, 255, 0.5) - Electric Blue
+rgba(138, 43, 226, 0.5) - Neon Purple
+rgba(255, 215, 0, 0.5) - Auroran Gold
+rgba(0, 255, 136, 0.5) - Cyber Green
+rgba(255, 20, 147, 0.5) - Neon Pink
+*/
+@keyframes aurora-border {
+    /* Auroran Gold */
+    0% {
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 85%, rgba(255, 215, 0, 0.15) 95%, rgba(255, 215, 0, 0.25) 100%),
+            linear-gradient(270deg, transparent 0%, transparent 85%, rgba(255, 215, 0, 0.15) 95%, rgba(255, 215, 0, 0.25) 100%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    5% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 70%, rgba(255, 215, 0, 0.15) 85%, rgba(255, 215, 0, 0.25) 100%),
+            linear-gradient(270deg, transparent 0%, transparent 70%, rgba(255, 215, 0, 0.15) 85%, rgba(255, 215, 0, 0.25) 100%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    10% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 55%, rgba(255, 215, 0, 0.15) 70%, rgba(255, 215, 0, 0.25) 85%),
+            linear-gradient(270deg, transparent 0%, transparent 55%, rgba(255, 215, 0, 0.15) 70%, rgba(255, 215, 0, 0.25) 85%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    15% {
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 25%, rgba(255, 215, 0, 0.15) 45%, rgba(255, 215, 0, 0.25) 50%),
+            linear-gradient(270deg, transparent 0%, transparent 25%, rgba(255, 215, 0, 0.15) 45%, rgba(255, 215, 0, 0.25) 50%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    18% {
+        background: transparent;
+        background-size: 100% 5px;
+        background-position: center, center;
+    }
+    
+    /* Electric Blue */
+    20% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 85%, rgba(0, 212, 255, 0.15) 95%, rgba(0, 212, 255, 0.25) 100%),
+            linear-gradient(270deg, transparent 0%, transparent 85%, rgba(0, 212, 255, 0.15) 95%, rgba(0, 212, 255, 0.25) 100%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    25% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 70%, rgba(0, 212, 255, 0.15) 85%, rgba(0, 212, 255, 0.25) 100%),
+            linear-gradient(270deg, transparent 0%, transparent 70%, rgba(0, 212, 255, 0.15) 85%, rgba(0, 212, 255, 0.25) 100%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    30% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 55%, rgba(0, 212, 255, 0.15) 70%, rgba(0, 212, 255, 0.25) 85%),
+            linear-gradient(270deg, transparent 0%, transparent 55%, rgba(0, 212, 255, 0.15) 70%, rgba(0, 212, 255, 0.25) 85%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    35% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 25%, rgba(0, 212, 255, 0.15) 45%, rgba(0, 212, 255, 0.25) 50%),
+            linear-gradient(270deg, transparent 0%, transparent 25%, rgba(0, 212, 255, 0.15) 45%, rgba(0, 212, 255, 0.25) 50%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    38% {
+        background: transparent;
+        background-size: 100% 5px;
+        background-position: center, center;
+    }
+    
+    /* Neon Purple */
+    40% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 85%, rgba(138, 43, 226, 0.15) 95%, rgba(138, 43, 226, 0.25) 100%),
+            linear-gradient(270deg, transparent 0%, transparent 85%, rgba(138, 43, 226, 0.15) 95%, rgba(138, 43, 226, 0.25) 100%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    45% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 70%, rgba(138, 43, 226, 0.15) 85%, rgba(138, 43, 226, 0.25) 100%),
+            linear-gradient(270deg, transparent 0%, transparent 70%, rgba(138, 43, 226, 0.15) 85%, rgba(138, 43, 226, 0.25) 100%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    50% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 55%, rgba(138, 43, 226, 0.15) 70%, rgba(138, 43, 226, 0.25) 85%),
+            linear-gradient(270deg, transparent 0%, transparent 55%, rgba(138, 43, 226, 0.15) 70%, rgba(138, 43, 226, 0.25) 85%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    55% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 25%, rgba(138, 43, 226, 0.15) 45%, rgba(138, 43, 226, 0.25) 50%),
+            linear-gradient(270deg, transparent 0%, transparent 25%, rgba(138, 43, 226, 0.15) 45%, rgba(138, 43, 226, 0.25) 50%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    58% {
+        background: transparent;
+        background-size: 100% 5px;
+        background-position: center, center;
+    }
+    
+    /* Cyber Green */
+    60% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 85%, rgba(0, 255, 136, 0.15) 95%, rgba(0, 255, 136, 0.25) 100%),
+            linear-gradient(270deg, transparent 0%, transparent 85%, rgba(0, 255, 136, 0.15) 95%, rgba(0, 255, 136, 0.25) 100%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    65% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 70%, rgba(0, 255, 136, 0.15) 85%, rgba(0, 255, 136, 0.25) 100%),
+            linear-gradient(270deg, transparent 0%, transparent 70%, rgba(0, 255, 136, 0.15) 85%, rgba(0, 255, 136, 0.25) 100%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    70% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 55%, rgba(0, 255, 136, 0.15) 70%, rgba(0, 255, 136, 0.25) 85%),
+            linear-gradient(270deg, transparent 0%, transparent 55%, rgba(0, 255, 136, 0.15) 70%, rgba(0, 255, 136, 0.25) 85%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    75% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 25%, rgba(0, 255, 136, 0.15) 45%, rgba(0, 255, 136, 0.25) 50%),
+            linear-gradient(270deg, transparent 0%, transparent 25%, rgba(0, 255, 136, 0.15) 45%, rgba(0, 255, 136, 0.25) 50%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    78% {
+        background: transparent;
+        background-size: 100% 5px;
+        background-position: center, center;
+    }
+    
+    /* Neon Pink */
+    80% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 85%, rgba(255, 20, 147, 0.15) 95%, rgba(255, 20, 147, 0.25) 100%),
+            linear-gradient(270deg, transparent 0%, transparent 85%, rgba(255, 20, 147, 0.15) 95%, rgba(255, 20, 147, 0.25) 100%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    85% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 70%, rgba(255, 20, 147, 0.15) 85%, rgba(255, 20, 147, 0.25) 100%),
+            linear-gradient(270deg, transparent 0%, transparent 70%, rgba(255, 20, 147, 0.15) 85%, rgba(255, 20, 147, 0.25) 100%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    90% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 55%, rgba(255, 20, 147, 0.15) 70%, rgba(255, 20, 147, 0.25) 85%),
+            linear-gradient(270deg, transparent 0%, transparent 55%, rgba(255, 20, 147, 0.15) 70%, rgba(255, 20, 147, 0.25) 85%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    95% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 25%, rgba(255, 20, 147, 0.15) 45%, rgba(255, 20, 147, 0.25) 50%),
+            linear-gradient(270deg, transparent 0%, transparent 25%, rgba(255, 20, 147, 0.15) 45%, rgba(255, 20, 147, 0.25) 50%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+    98% {
+        background: transparent;
+        background-size: 100% 5px;
+        background-position: center, center;
+    }
+    
+    100% { 
+        background: 
+            linear-gradient(90deg, transparent 0%, transparent 85%, rgba(255, 215, 0, 0.15) 95%, rgba(255, 215, 0, 0.25) 100%),
+            linear-gradient(270deg, transparent 0%, transparent 85%, rgba(255, 215, 0, 0.15) 95%, rgba(255, 215, 0, 0.25) 100%);
+        background-size: 100% 5px, 100% 5px;
+        background-position: center, center;
+    }
+}
 
 /* Global styles */
 * {
     font-family: "Comfortaa", "Font Awesome 6 Free", FontAwesome, sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     border: none;
-    border-radius: 8px;
     min-height: 0;
-    margin: 4px 2px;
+    margin: 0;
     padding: 0;
-    /* transition: all 0.3s ease; */
 }
 
 /* Main waybar container */
 #waybar {
-    background: rgba(13, 17, 23, 0.0);
-    color: #F0F6FC;
-    padding: 4px 8px;
-    box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15);
+    border-radius: 0;
+    animation: aurora-border 20s linear infinite;
+    transition: border-size 0.3s ease, background-color 0.3s ease;
+}
+
+#waybar > .horizontal {
+    margin: 0 8px;
 }
 
 /* Hide waybar when window is fullscreen */
 window#waybar.hidden {
     opacity: 0;
+    background: transparent;
 }
 
-/* Workspace styling */
-#workspaces {
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.15) 0%, rgba(0, 212, 255, 0.15) 100%);
+.module {
+    margin: 12px 0px;
     border-radius: 12px;
-    border: 5px solid rgba(0, 255, 136, 0.3);
-    padding: 4px;
-    margin: 4px 8px;
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Cyber Green module styling */
+/* Workspaces */
+#workspaces {
+    background: rgba(0, 255, 136, 0.25);
+    border: 2px solid #00FF88;
+}
+
+#workspaces:hover{
+    border-color: rgba(240, 246, 252, 0.75);
+    background: rgba(0, 255, 136, 0.3);
 }
 
 #workspaces button {
-    padding: 1px;
-    margin: 2px;
-    border-radius: 1px;
-    color: #FF1493;
-    background: url('/home/kitkabbit/Hyprkit/dotfiles/auroran-neon/assets/diamond-inactive.svg');
-    background-size: cover, 12px 12px;
+    padding: 8px;
+    color: #00D4FF;
+    background: url('/home/kitkabbit/Hyprkit/dotfiles/auroran-neon/assets/icons/diamond-inactive.svg');
+    background-size: 36px 36px;
     background-position: center, center;
     background-repeat: no-repeat, no-repeat;
-    font-weight: 600;
-    min-width: 24px;
 }
 
 #workspaces button.active {
     color: #8A2BE2;
-    background: url('/home/kitkabbit/Hyprkit/dotfiles/auroran-neon/assets/diamond.svg');
-    background-size: cover, 24px 24px;
+    background: url('/home/kitkabbit/Hyprkit/dotfiles/auroran-neon/assets/icons/diamond.svg');
+    background-size: 36px 36px;
     background-position: center, center;
     background-repeat: no-repeat, no-repeat;
-    border-bottom: 2px solid rgba(0, 212, 255, 1);
-    font-weight: 800;
 }
 
-#workspaces button:not(.active):hover {
-    border-bottom: 2px solid rgba(0, 212, 255, 0.25);
-}
-
-#workspaces button.urgent {
-    color: #FFFFFF;
-    background: linear-gradient(135deg, #FF1493 0%, #FF6B35 100%), 
-                url('/home/kitkabbit/Hyprkit/dotfiles/auroran-neon/assets/diamond.svg');
-    background-size: cover, 24px 24px;
-    background-position: center, center;
-    background-repeat: no-repeat, no-repeat;
-    box-shadow: 0 4px 12px rgba(255, 20, 147, 0.4);
-}
-
-/* Window title */
-#window {
-    background: rgba(28, 33, 40, 0.8);
-    color: #F0F6FC;
-    font-weight: 600;
-    border-radius: 12px;
-    padding: 8px 16px;
-    margin: 0 8px;
-    /* max-width: 300px; */
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(0, 212, 255, 0.1);
-}
-
-/* Clock styling */
-#clock {
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.15) 0%, rgba(0, 212, 255, 0.15) 100%);
-    color: #FFD700;
-    font-weight: 700;
-    font-size: 16px;
-    border-radius: 12px;
-    padding: 8px 16px;
-    margin: 0 8px;
-    box-shadow: 0 4px 12px rgba(215, 215, 0, 0.2);
-    border: 5px solid rgba(215, 215, 0, 0.3);
-    text-shadow: 0 0 8px rgba(215, 215, 0, 0.5);
-}
-
-/* Module base styling */
-#battery,
-#cpu,
-#memory,
-#disk,
-#temperature,
-#backlight,
-#network,
-#pulseaudio,
-#wireplumber,
-#bluetooth,
-#tray,
-.module {
-    background: rgba(28, 33, 40, 0.8);
-    color: #F0F6FC;
-    border-radius: 10px;
-    padding: 6px 12px;
-    margin: 0 4px;
-    font-weight: 600;
-    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
-    border: 5px solid rgba(48, 54, 61, 0.5);
-}
-
-/* Hover effects for modules */
-#battery:hover,
-#cpu:hover,
-#memory:hover,
-#disk:hover,
-#temperature:hover,
-#backlight:hover,
-#network:hover,
-#pulseaudio:hover,
-#wireplumber:hover,
-#bluetooth:hover {
-    background: rgba(138, 43, 226, 0.2);
-    border-color: rgba(138, 43, 226, 0.4);
-    box-shadow: 0 4px 12px rgba(138, 43, 226, 0.2);
-}
-
-/* CPU - Cyber Orange */
-#cpu {
-    color: #FF6B35;
-    border-color: rgba(255, 107, 53, 0.3);
-}
-
-/* Memory - Neon Purple */
-#memory {
-    color: #8A2BE2;
-    border-color: rgba(138, 43, 226, 0.3);
-}
-
-/* Battery - Cyber Green when charging/full */
-#battery {
-    color: #FFD700;
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.15) 0%, rgba(0, 212, 255, 0.15) 100%);;
-    border-color: rgba(255, 215, 0, 0.3);
-}
-
+/* Battery charging and full */
 #battery.charging,
 #battery.full,
 #battery.plugged {
     color: #00FF88;
     border-color: rgba(0, 255, 136, 0.3);
     background: rgba(0, 255, 136, 0.1);
+    text-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+}
+
+#battery.charging:hover,
+#battery.full:hover,
+#battery.plugged:hover {
+    background: rgba(0, 255, 136, 0.2);
+    border-color: rgba(240, 246, 252, 0.75);
+    color: rgba(240, 246, 252, 0.75);
+    text-shadow: 0 0 8px rgba(240, 246, 252, 0.5);
+    transition: all 0.3s ease-in-out;
 }
 
 #battery.critical:not(.charging) {
@@ -174,10 +283,35 @@ window#waybar.hidden {
     background: rgba(255, 20, 147, 0.15);
 }
 
-/* Network - Electric Blue */
+/* Electric Blue module styling */
+#custom-screenshot_t{
+    padding: 16px;
+    background: rgba(0, 212, 255, 0.15);
+    border-radius: 12px;
+    border: 2px solid #00D4FF;
+    text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+#custom-screenshot_t:hover {
+    background: rgba(0, 212, 255, 0.3);
+    border-color: rgba(240, 246, 252, 0.75);
+    color: rgba(240, 246, 252, 0.75);
+    transition: all 0.3s ease-in-out;
+}
+
 #network {
+    padding: 8px 12px;
+    background: rgba(0, 212, 255, 0.15);
+    border: 2px solid #00D4FF;
     color: #00D4FF;
-    border-color: rgba(0, 212, 255, 0.3);
+}
+
+#network:hover {
+    background: rgba(0, 212, 255, 0.3);
+    border-color: rgba(240, 246, 252, 0.75);
+    color: rgba(240, 246, 252, 0.75);
+    transition: all 0.3s ease-in-out;
 }
 
 #network.disconnected {
@@ -185,116 +319,77 @@ window#waybar.hidden {
     border-color: rgba(255, 20, 147, 0.3);
 }
 
-/* Audio - Cyber Green */
-#pulseaudio,
-#wireplumber {
-    color: #8A2BE2;
-    border-color: rgba(138, 43, 226, 0.3);
-}
-
-/* Bluetooth - Neon Purple */
-#bluetooth {
-    color: #8A2BE2;
-    border-color: rgba(138, 43, 226, 0.3);
-}
-
-#bluetooth.disconnected {
-    color: #7D8590;
-    border-color: rgba(125, 133, 144, 0.3);
-}
-
-/* System tray */
-#tray {
-    background: rgba(28, 33, 40, 0.8);
-    border-radius: 10px;
-    padding: 6px;
-    border: 1px solid rgba(0, 212, 255, 0.2);
-}
-
-#tray > .passive {
-    -gtk-icon-effect: dim;
-}
-
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background: rgba(255, 20, 147, 0.2);
-    border-radius: 6px;
-}
-
-/* Custom modules */
-#custom-power,
-#custom-screenshot_t,
-#custom-storage,
-#custom-spotify,
-#custom-weather {
-    background: rgba(28, 33, 40, 0.8);
-    color: #F0F6FC;
-    border-radius: 10px;
-    padding: 6px 12px;
-    margin: 0 4px;
+/* Auroran Gold module styling */
+#clock {
+    background: rgba(255, 215, 0, 0.25);
+    color: #FFD700;
     font-weight: 600;
-    border: 5px solid rgba(48, 54, 61, 0.5);
-    /* transition: all 0.3s ease; */
+    padding: 8px 12px;
+    border: 4px solid rgba(215, 215, 0, 1);
+    text-shadow: 0 0 8px rgba(215, 215, 0, 0.5);
+    transition: all 0.3s ease-in-out;
+}
+#clock:hover {
+    background: rgba(255, 215, 0, 0.2);
+    border-color: rgba(240, 246, 252, 0.75);
+    color: rgba(240, 246, 252, 0.75);
+    text-shadow: 0 0 8px rgba(240, 246, 252, 0.5);
+    transition: all 0.3s ease-in-out;
 }
 
+/* Battery - Auroran gold when discharging */
+#battery {
+    color: #FFD700;
+    background: rgba(215, 215, 0, 0.25);
+    border: 2px solid #FFD700;
+    /* margin: 20px 0px; */
+    padding: 8px 12px;
+    border-color: rgba(255, 215, 0, 0.3);
+    text-shadow: 0 0 8px rgba(215, 215, 0, 0.5);
+}
+
+#battery:hover {
+    background: rgba(255, 215, 0, 0.3);
+    border-color: rgba(240, 246, 252, 0.75);
+    color: rgba(240, 246, 252, 0.75);
+    text-shadow: 0 0 8px rgba(240, 246, 252, 0.5);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Neon Red module styling */
 /* Power button - Warning colors */
 #custom-power {
     color: #FF6B35;
+    border: 2px solid #FF6B35;
+    background: rgba(255, 107, 53, 0.15);
+    padding: 12px;
     border-color: rgba(255, 107, 53, 0.3);
+    text-shadow: 0 0 8px rgba(255, 107, 53, 0.5);
 }
 
 #custom-power:hover {
     background: rgba(255, 107, 53, 0.2);
-    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+    border-color: rgba(240, 246, 252, 0.75);
+    color: rgba(240, 246, 252, 0.75);
+    text-shadow: 0 0 8px rgba(240, 246, 252, 0.5);
+    transition: all 0.3s ease-in-out;
 }
 
-/* Screenshot - Electric Blue */
-#custom-screenshot_t {
-    color: #00D4FF;
-    border-color: rgba(0, 212, 255, 0.3);
+/* Neon Purple module styling */
+#wireplumber {
+    background: rgba(138, 43, 226, 0.15);
+    color: #8A2BE2;
+    padding: 8px 12px;
+    border: 2px solid #8A2BE2;
+    text-shadow: 0 0 8px rgba(138, 43, 226, 0.5);
 }
 
-/* Spotify - Cyber Green */
-#custom-spotify {
-    color: #00FF88;
-    border-color: rgba(0, 255, 136, 0.3);
-    min-width: 120px;
-}
-
-/* Weather - Auroran Gold */
-#custom-weather {
-    color: #FFD700;
-    border-color: rgba(255, 215, 0, 0.3);
-}
-
-/* Temperature - gradient based on heat */
-#temperature {
-    color: #00D4FF;
-    border-color: rgba(0, 212, 255, 0.3);
-}
-
-#temperature.critical {
-    color: #FF1493;
-    border-color: rgba(255, 20, 147, 0.5);
-    background: rgba(255, 20, 147, 0.15);
-}
-
-/* Backlight - Soft white */
-#backlight {
-    color: #F0F6FC;
-    border-color: rgba(240, 246, 252, 0.3);
-}
-
-/* Idle inhibitor */
-#idle_inhibitor {
-    color: #7D8590;
-    border-color: rgba(125, 133, 144, 0.3);
-}
-
-#idle_inhibitor.activated {
-    color: #00FF88;
-    border-color: rgba(0, 255, 136, 0.3);
-    background: rgba(0, 255, 136, 0.1);
+#wireplumber:hover {
+    background: rgba(138, 43, 226, 0.3);
+    border-color: rgba(240, 246, 252, 0.75);
+    color: rgba(240, 246, 252, 0.75);
+    text-shadow: 0 0 8px rgba(240, 246, 252, 0.5);
+    transition: all 0.3s ease-in-out;
 }
 
 /* Tooltips */
