@@ -1,11 +1,29 @@
-max-visible=10
+max-visible=8
 layer=top
-font=Sarasa UI SC 10
-background-color=#4c566add
-text-color=#d8dee9
-border-color=#434c5e
-border-radius=7
-max-icon-size=48
-default-timeout=10000
+font=Comfortaa 12
+width=420
+height=120
+padding=15
+background-color=#1C2128dd
+text-color=#F0F6FC
+border-color=#00D4FF
+border-size=5
+border-radius=12
+max-icon-size=64
+default-timeout=8000
 anchor=top-right
-margin=20
+margin=25
+progress-color=#8A2BE2
+icons=1
+
+# Critical notifications
+[urgency=critical]
+background-color=#FF1493dd
+border-color=#FF6B35
+text-color=#FFFFFF
+
+# High priority notifications  
+[urgency=high]
+background-color=#FF6B35dd
+border-color=#FFD700
+text-color=#FFFFFF
