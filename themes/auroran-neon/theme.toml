@@ -1,0 +1,24 @@
+
+[theme]
+theme_name = "Auroran Neon"
+theme_description = "A visually captivating theme inspired by the Sweet theme and Beautyline icon designs all mixed with an auroran flair"
+theme_version = "0.1"
+theme_author = "Kit Kabbit"
+theme_license = "GPL-3.0"
+
+[requirements]
+packages = ["waybar", "wofi", "wlogout"]
+min_hyprland_version = 0.43
+
+# ─────────────────────────────────────────────────────────────
+#                    Auroran Neon Color Palette
+# ─────────────────────────────────────────────────────────────
+
+[colors]
+# Core neon colors matching the file manager aesthetic
+electric_blue = "#00D4FF"
+neon_purple = "#8A2BE2" 
+cyber_green = "#00FF88"
+neon_pink = "#FF1493"
+auroran_gold = "#FFD700"
+cyber_orange = "#FF6B35"

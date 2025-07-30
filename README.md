@@ -1,16 +1,25 @@
-# 🦊 HyprKit - Hyprland Theme Manager
+# 🦊 HyprKit - Hyprland Theme & State Management
+## GOALS
+- 🎨 **Theme Switching** - Apply themes instantly
+- ⏪ **Backup & Restore** - Because indecisiveness is a way of life
+- 🔍 **Proper Separation of Concerns** - User overrides that persist between aesthetic theme changes. No more resetting your monitor config just because you want a new look! 
+- 💾 **Live State Persistence** - Remembers changes like floating window positions, gaps, etc. and intelligently writes them to your configs 
+- 🤝 **API Layer** - Easily interface with the GUI of your choice and modify persistent state as you will. I'm planning on using AGS for my rig but with IPC and HTTP support, it should work for all kinds of mad science
 
-*"I DON'T KNOW! I'M STUPID AND GAY!"* - Kit, probably
+Warning: This is highly experimental and being made while I'm incredibly ill. I do want to make it a cool portfolio project or my first big community foray but manage expectations on timeline and true thoroughness. 
+*"I DON'T KNOW! I'M STUPID AND GAY!"* - Kit
 
 ---
 
-## What is this thingie?
+## What is this thingie? (Now with 100% more Rust!)
 
-HyprKit is my egocentric attempt at making a Hyprland theme manager that (probably) doesn't suck completely. It's powered by bottled insanity, questionable life choices, and an unhealthy amount of UwU energy. 
+HyprKit started as my egocentric bash script experiment and has evolved into a proper Rust-powered Hyprland theme and state management system that (probably) won't be useless. It's powered by bottled insanity and questionable life choices, but now with memory safety and just... so many ampersands! 
 
-Huge thanks to the amazing people working on **CachyOS** for their incredible distro and slick default theme, and to **mylinuxforwork** for the fantastic ML4W dotfiles that inspired this dubious endeavor!
+**Current Status: Complete Rust Rewrite in Progress!** 🦀
 
-Does it work? *Probably!* Will it set your computer on fire? *Hopefully not!*
+What started as simple theme switching has grown into a full desktop state management system. Because this is pretty much fly by wire tinkering.
+
+Does it work? *Eventually!* Will it set your computer on fire? *I invoke my 5th ammendment right against self incrimination*
 
 ```
          /\     /\  
@@ -20,159 +29,82 @@ Does it work? *Probably!* Will it set your computer on fire? *Hopefully not!*
            -----   
 ```
 
-## Features (That Actually Work)
-
-- 🎨 **Theme Switching** - Apply themes instantly
-- 📋 **Active Theme Display** - See what disaster you're currently running
-- ⏪ **Backup & Restore** - Because indecisiveness is a way of life
-- 🌈 **Dynamic Window Shaders** - Each app gets its own vibe (NEW!)
-- 🎮 **Ambient Screen Effects** - From coding circuitry to arcade nostalgia
-- 🖥️ **Smart Shader Switching** - Your terminal looks techy, your games look retro
-- ✨ **ASCII Art** - Because why not add more visual noise?
-
-## Installation (AKA "How to let me infect your system with silliness")
-
-1. **Clone this beautiful disaster:**
-   ```bash
-   git clone <your-repo-url> ~/HyprKit
-   cd ~/HyprKit
-   ```
-
-2. **Execute order 66:**
-   ```bash
-   # Make scripts executable (because apparently that's important)
-   chmod +x hyprkit.sh
-   chmod +x scripts/set-theme.sh
-   ```
-
-3. **Run my masterpiece:**
-   ```bash
-   ./hyprkit.sh
-   ```
-
-## Usage
-
-### Interactive Mode (Recommended for LOSERS)
-```bash
-./hyprkit.sh
-```
-
-### Direct Commands (For the Brave/Stupid >:3)
-```bash
-# Set a theme (crossing fingers optional)
-./scripts/set-theme.sh <theme-name>
-
-# See what's currently active
-./scripts/set-theme.sh --active
-
-# Restore backup (when you inevitably break something)
-./scripts/set-theme.sh --restore
-
-# Get help (I hear that all the time!)
-./scripts/set-theme.sh --help
-```
-
-## Dynamic Shader System (The Cool New Toy!)
-
-NOPE NEVER MIND. While cool in theory, spending long periods of time with it revealed it to be more obnoxious than anything. Research into binding tints to a window or making it subtle enough to not get annoying after a while is required.
-
-~~**What the hell is this?** Kit got bored and decided each application should have its own personality through screen shaders. Because apparently normal desktop environments are for peasants.~~
-
-~~### Shader Personalities 🎭~~
-
-~~- **🌱 Cyber Green** - For coding apps (VS Code, Neovim, etc.)
-  - *Vibe*: Subtle circuitry patterns that whisper "I think I sort of remember the matrix"~~
-  
-~~- **⚡ Electric Blue** - For browsers (Firefox, Chrome, etc.)~~  
-  - *Vibe*: Blade Runner neon marquee because browsing should feel like a window into all things
-  
-~~- **🏆 Auroran Gold** - For file managers (Thunar, Nautilus, etc.)~~
-  ~~- *Vibe*: Luxury gradient that makes organizing files feel like a holographic projection~~
-  
-~~- **💜 Neon Purple** - For communication apps (Discord, Telegram, etc.)~~
-  ~~- *Vibe*: Mystical purple aura so you can chill when you trade furry [REDACTED] or roleplay [REDACTED]ing your homies~~
-  
-~~- **🎮 Ambient Pink** - For gaming apps (Steam, Lutris, etc.)~~
-  ~~- *Vibe*: Warm arcade cabinet glow, I'm not old, you are!~~
-  
-~~- **🖥️ Electric Cyan** - For terminals (Kitty, Alacritty, etc.)~~
-  ~~- *Vibe*: Clean terminal glow that thrums with potential~~
-
-~~### Using Slim Shader~~
-
-~~```bash~~
-~~# Start the shader monitoring daemon, first one I've ever made!~~
-~~./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh start~~
-
-~~# Check if the shader robot is actually working~~
-~~./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh status~~
-
-~~# Test shader on whatever window you're currently staring at~~
-~~./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh test~~
-
-~~# Make it stop, I'm admittedly a little ostentatious~~
-~~./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh stop~~
-
-~~**Pro Tip**: The system automatically detects what app you're using and applies the matching shader. It's like having a personal desktop stylist, but it's called a daemon so it's 100x cooler~~
-
-## Directory Structure (Leaves actual theme structure up to the designer)
+## Directory Structure (Note that themes are intended to be loaded from the user's .themes/hyprkit folder and is only here as an example of how a theme is structured. The backups and such are stored in .local, and the actual writing occurs live in the .config/hypr directory. Things like waybar and wlogout are not kept in state management)
 
 ```
 HyprKit/
-├── hyprkit.sh               # Main interface (Start here)
-├── scripts/
-│   └── set-theme.sh         # The actual magic happens here
+├── Cargo.toml               # Rust project configuration
+├── src/
+│   ├── main.rs              # CLI interface and command routing
+│   ├── lib.rs               # Core library modules
+│   ├── api/                 # HTTP and IPC API implementations
+│   │   ├── mod.rs
+│   │   ├── http.rs          # REST API for web interfaces
+│   │   ├── ipc.rs           # Unix socket communication
+│   │   └── types.rs         # Shared API types
+│   └── config/              # Configuration management
+│       ├── mod.rs
+│       └── paths.rs         # XDG directory handling
 ├── themes/
 │   ├── cachyos/             # CachyOS team's beautiful default theme
-│   └── ml4w/                # ML4W dotfiles theme (mylinuxforwork)
+│   └── auroran-neon/        # Kit's custom cyberpunk theme
 │       ├── theme.toml       # Theme metadata
-│       ├── hypr/            # Hyprland configs
-│       ├── waybar/          # Waybar configs  
-│       ├── wofi/            # Wofi configs
-│       └── ...              # Other config directories
-├── backup/                  # Your safety net
-└── current -> themes/...    # Symlink to active theme
+│       ├── assets/          # Theme icons, wallpapers, sounds, etc.
+|       └── dotfiles/        # The actual meat and potatoes configs
+│           ├── hypr/        # Hyprland configs
+│           ├── waybar/      # Waybar configs  
+│           ├── wofi/        # Wofi configs
+│           └── ...          # Other config directories
 ```
 
+## 🗺️ Development Roadmap
+
+### 🚧 **Phase 1: Core Rust Foundation** (Current)
+- [x] Basic CLI structure with clap
+- [x] Async runtime setup with tokio  
+- [x] Project structure and module organization
+- [ ] Theme discovery and validation
+- [ ] Config file parsing
+- [ ] Basic theme switching functionality
+- [ ] Backup and restore system
+- [ ] Live state monitoring and persistence
+
+### 🎨 **Phase 2: Theme & State Features**
+- [ ] Theme variants and customization
+- [ ] State persistence for floating window positions, workspaces, etc.
+- [ ] Per-application window rules persistence
+- [ ] Buffer on state changes to prevent too much I/O
+- [ ] Theme dependency validation
+
+### 🌐 **Phase 2: API Layer** 
+- [ ] IPC socket communication
+- [ ] HTTP REST API implementation
+- [ ] Error handling and response types
+
+### 🔮 **Phase 4: Desktop Integration**
+- [ ] GTK theme support
+- [ ] Qt theme support
+- [ ] Icon theme support  
+- [ ] Cursor theme support
+- [ ] Color palette extraction and generation if applicable
+
 ## How It Works
+I'll let you know when I do lol. I have plans but it's highly subject to experimentation and documentation deep dives.
 
-1. **Symlink Magic** - Creates a `current` symlink pointing to your chosen theme
-2. **Config Backup** - Your existing configs get safely tucked away (with timestamps!)
-3. **Theme Application** - New configs get linked to `~/.config/`
-4. **Hyprctl Reload** - Hyprland gets told about the changes
-5. **Profit???** - Your desktop looks foxy (hopefully)
-
-## Adding New Themes (Advanced Chaos Engineering)
+## Adding New Themes
 
 1. Create a new directory in `themes/`
 2. Add your config directories (hypr, waybar, wofi, etc.)
-3. Include a `theme.toml` file (currently decorative, but I have plans!)
+3. Include a `theme.toml` file for dependencies primarily
 4. Cross your fingers and hope I don't break it
 
-Example theme structure:
-```
-themes/your-awesome-theme/
-├── theme.toml           # Theme info (name, description, etc.)
-├── hypr/               # Hyprland configuration
-├── waybar/             # Waybar configuration  
-├── wofi/               # Wofi configuration
-└── ...                 # Whatever else you need
-```
 
-## Planned Features (Kit's Delusional Ambitions)
-
-- 🎨 **Automatic GTK Theme Matching** - Because consistency is overrated
-- 📦 **Package Requirements & Auto-Install** - Let me handle your dependencies (what could go wrong giving my script root perms?)
-- 🔧 **Theme Validation** - Make sure themes aren't completely broken before applying them
-- 🌈 **More ASCII Art** - Because clearly there's not enough visual chaos
-- 🎵 **Sound Effects** - Because why shouldn't theme switching go "boop"?
-
-## Requirements (The Boring Stuff)
+## Requirements
 
 - **Hyprland** - Obviously, since this is a Hyprland theme manager
+- **Rust** - For building the new shiny binary (1.75+ recommended)
 - **GTK** - Optional if Gnome themes are on the menu
-- **Bash** - For running my beautiful scripts
-- **Working Brain Cells** - Optional, I doesn't have many either
+- **Working Brain Cells** - Optional, I doesn't have many neither XwX
 
 ## FAQ
 
@@ -186,10 +118,10 @@ A: Because I'm a furry and that's where my world begins and ends most days
 A: Well stupid and bisexual just doesn't sound as charming
 
 **Q: Can I add my own themes?**
-A: Please do! This isn't an ambitious or proprietary project, so go nuts
+A: Please do! This is designed to handle any set of hyprland dotfiles in theory
 
 **Q: What if something goes wrong?**
-A: Always do your own backups
+A: Always do your own backups, this is beyond experimental
 
 ## Support and Contacts
 
@@ -201,7 +133,7 @@ A: Always do your own backups
 
 ## License
 
-This project is licensed under the world famous "Do Whatever The Hell You Want, This is for Fun" license.
+This project is licensed under the world famous "Do Whatever The Hell You Want, This is for Fun, Future Efficiency, and Self Education" license.
 
 ```
          /\     /\  
@@ -214,8 +146,8 @@ This project is licensed under the world famous "Do Whatever The Hell You Want, 
 **P.S.** - Jokes aside, I really do hope you enjoy this dumb little experiment
 
 ## Credits & Thanks 🙏
-
 - **CachyOS Team** - For their incredible distribution and the beautiful default theme that ships with it
 - **mylinuxforwork** - For the amazing ML4W dotfiles project that inspired much of this work: https://github.com/mylinuxforwork/dotfiles
 - **The Hyprland Community** - For building such an awesome compositor
-- **Everyone who contributes themes** - Well that is if anyone decides to X3
+- **The Flying Bucket** - My online friends who've been unreal in their support and kindness in a time where I've been too sick to be the social butterfly I used to
+- **Everyone who sees this as worthwhile in any way** - Well that is if anyone decides it is X3

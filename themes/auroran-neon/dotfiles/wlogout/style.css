@@ -1,0 +1,91 @@
+* {
+	background-image: none;
+	box-shadow: none;
+	font-family: "Comfortaa", sans-serif;
+}
+
+window {
+	background: linear-gradient(45deg , rgba(255, 215, 0, 0.5), rgba(255, 107, 53, 0.5), rgba(0, 212, 255, 0.5), rgba(138, 43, 226, 0.5), rgba(0, 255, 136, 0.5), rgba(255, 20, 147, 0.5));
+}
+
+button {
+    border-radius: 8px;
+    border: 2px solid transparent;
+    color: #FFFFFF;
+    background-color: rgba(28, 33, 40, 0.8);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    font-weight: 600;
+    font-family: "Comfortaa";
+	margin: 10px;
+	/* padding: 10px; */
+}
+
+button:hover {
+    outline-style: none;
+	margin-top: -2px;
+	margin-bottom: -2px;
+}
+
+#lock {
+    background-image: url("/home/kitkabbit/Hyprkit/themes/auroran-neon/assets/icons/lock.svg");
+	border-color: #FF6B35;
+	background-size: 64px 64px;
+}
+
+#lock:hover {
+    background-color: rgba(138, 43, 226, 0.5);
+}
+
+#logout {
+    background-image: url("/home/kitkabbit/Hyprkit/themes/auroran-neon/assets/icons/logout.svg");
+    border-color: #8A2BE2;
+    background-size: 64px 64px;
+}
+
+#logout:hover {
+    background-color: rgba(0, 255, 136, 0.5);
+}
+
+#suspend {
+    background-image: url("/home/kitkabbit/Hyprkit/themes/auroran-neon/assets/icons/suspend.svg");
+    border-color: #FF1493;
+    background-size: 64px 64px;
+}
+
+#suspend:hover {
+    background-color: rgba(0, 212, 255, 0.5);
+}
+
+#hibernate {
+    background-image: url("/home/kitkabbit/Hyprkit/themes/auroran-neon/assets/icons/hibernate.svg");
+    border-color: #8A2BE2;
+    background-size: 64px 64px;
+}
+
+#hibernate:hover {
+    background-color: rgba(255, 20, 147, 0.5);
+}
+
+#shutdown {
+    background-image: url("/home/kitkabbit/Hyprkit/themes/auroran-neon/assets/icons/shutdown.svg");
+    border-color: #FF4500;
+    background-size: 64px 64px;
+}
+
+#shutdown:hover {
+    background-color: rgba(255, 235, 59, 0.5);
+}
+
+#reboot {
+    background-image: url("/home/kitkabbit/Hyprkit/themes/auroran-neon/assets/icons/reboot.svg");
+    border-color: #8A2BE2;
+    background-size: 64px 64px;
+}
+
+#reboot:hover {
+    background-color: rgba(255, 69, 0, 0.5);
+}
