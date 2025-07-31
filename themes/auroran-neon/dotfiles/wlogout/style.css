@@ -31,7 +31,7 @@ button:hover {
 }
 
 #lock {
-    background-image: url("/home/kitkabbit/Hyprkit/themes/auroran-neon/assets/icons/lock.svg");
+    background-image: url("/home/kitkabbit/Projects/Hyprkit/themes/auroran-neon/assets/icons/lock.svg");
 	border-color: #FF6B35;
 	background-size: 64px 64px;
 }
@@ -41,7 +41,7 @@ button:hover {
 }
 
 #logout {
-    background-image: url("/home/kitkabbit/Hyprkit/themes/auroran-neon/assets/icons/logout.svg");
+    background-image: url("/home/kitkabbit/Projects/Hyprkit/themes/auroran-neon/assets/icons/logout.svg");
     border-color: #8A2BE2;
     background-size: 64px 64px;
 }
@@ -51,7 +51,7 @@ button:hover {
 }
 
 #suspend {
-    background-image: url("/home/kitkabbit/Hyprkit/themes/auroran-neon/assets/icons/suspend.svg");
+    background-image: url("/home/kitkabbit/Projects/Hyprkit/themes/auroran-neon/assets/icons/suspend.svg");
     border-color: #FF1493;
     background-size: 64px 64px;
 }
@@ -61,7 +61,7 @@ button:hover {
 }
 
 #hibernate {
-    background-image: url("/home/kitkabbit/Hyprkit/themes/auroran-neon/assets/icons/hibernate.svg");
+    background-image: url("/home/kitkabbit/Projects/Hyprkit/themes/auroran-neon/assets/icons/hibernate.svg");
     border-color: #8A2BE2;
     background-size: 64px 64px;
 }
@@ -71,7 +71,7 @@ button:hover {
 }
 
 #shutdown {
-    background-image: url("/home/kitkabbit/Hyprkit/themes/auroran-neon/assets/icons/shutdown.svg");
+    background-image: url("/home/kitkabbit/Projects/Hyprkit/themes/auroran-neon/assets/icons/shutdown.svg");
     border-color: #FF4500;
     background-size: 64px 64px;
 }
@@ -81,7 +81,7 @@ button:hover {
 }
 
 #reboot {
-    background-image: url("/home/kitkabbit/Hyprkit/themes/auroran-neon/assets/icons/reboot.svg");
+    background-image: url("/home/kitkabbit/Projects/Hyprkit/themes/auroran-neon/assets/icons/reboot.svg");
     border-color: #8A2BE2;
     background-size: 64px 64px;
 }

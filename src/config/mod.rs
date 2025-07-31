@@ -5,6 +5,8 @@ use std::path::PathBuf;
 use anyhow::Result;
 use serde::{Serialize, Deserialize};
 
+pub const THEME_FILE: &str = "theme.toml";
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Config {
     pub theme_dir: PathBuf,
