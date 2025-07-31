@@ -6,10 +6,12 @@ edition = "2024"
 [dependencies]
 anyhow = "1.0.98"
 clap = { version = "4.5.42", features = ["derive"] }
+futures = "0.3.31"
 serde = { version = "1.0.219", features = ["derive"] }
 serde_json = "1.0.141"
 thiserror = "2.0.12"
 tokio = { version = "1.47.0", features = ["full"] }
+tokio-stream = { version = "0.1.17", features = ["fs"] }
 toml = "0.9.4"
 tracing = "0.1.41"
 tracing-subscriber = "0.3.19"

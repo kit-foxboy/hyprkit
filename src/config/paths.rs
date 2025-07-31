@@ -49,4 +49,14 @@ impl PathManager {
             theme_dir,
         })
     }
+
+    pub fn get_config_dir(&self) -> &PathBuf {
+        &self.config_dir
+    }
+    pub fn get_data_dir(&self) -> &PathBuf {
+        &self.data_dir
+    }
+    pub fn get_theme_dir(&self) -> &PathBuf {
+        &self.theme_dir
+    }
 }
