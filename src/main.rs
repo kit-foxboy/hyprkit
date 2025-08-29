@@ -1,119 +1,222 @@
 use std::fs;
+use std::path::PathBuf;
 
-use anyhow::Result;
+use anyhow::{Result, Context};
 use clap::{Parser, Subcommand};
-use hyprkit::config::{PathManager, THEME_FILE};
-use tracing_subscriber::fmt::init;
-use walkdir::WalkDir;
-use toml::Table;
+
+mod tui;
+mod file_ops;
+mod theme_ops;
+
+use tui::TuiPrompts;
+use theme_ops::{install_package, uninstall_package, build_theme};
 
 #[derive(Parser)]
-#[command(name = "hyprkit", about = "A theme and state manager for Hyprland")]
+#[command(name = "hyprkit", about = "A simple dotfile manager using stow")]
 struct Cli {
+    /// Directory containing dotfile packages (default: current directory)
+    #[arg(short, long)]
+    dir: Option<PathBuf>,
+    
+    /// Target directory (default: $HOME)
+    #[arg(short, long)]
+    target: Option<PathBuf>,
+    
     #[command(subcommand)]
     command: Commands
 }
 
 #[derive(Subcommand)]
 enum Commands {
-    // Serve over HTTP
-    ServeHttp {
-        #[arg(short, long, default_value = "3000")]
-        port: u16,
-        #[arg(long)]
-        host: Option<String>
+    /// Install/link a dotfile package
+    Install {
+        /// Name of the package to install (optional - will prompt if not provided)
+        package: Option<String>,
     },
-
-    // Serve over IPC for direct communication
-    ServeIPC {
-        #[arg(long)]
-        socket_path: Option<String>
+    
+    /// Uninstall/unlink a dotfile package
+    Uninstall {
+        /// Name of the package to uninstall (optional - will prompt if not provided)
+        package: Option<String>,
     },
-
-    // Apply a theme - CLI direct
-    Apply {
-        #[arg(short, long)]
-        theme: String,
-        #[arg(long)]
-        variant: Option<String>,
+    
+    /// Build a new theme from existing config folders
+    Build {
+        /// Name for the new theme
+        name: String,
     },
-
-    // List available themes - CLI direct
-    List
+    
+    /// List available packages
+    List,
+    
+    /// Show which packages are currently installed
+    Status,
 }
 
-#[tokio::main]
-async fn main() -> Result<()> {
-
-    // Initialize logging
-    init();
-
-    // Set up paths
-    let path_manager = PathManager::new().await?;
-    
+fn main() -> Result<()> {
     let cli = Cli::parse();
+    
+    let home_dir = PathBuf::from(std::env::var("HOME").expect("HOME environment variable not set"));
+    let dotfiles_dir = cli.dir.unwrap_or_else(|| home_dir.join(".config/hyprkit"));
+    let target_dir = cli.target.unwrap_or_else(|| home_dir.clone());
+    
     match cli.command {
-        Commands::ServeHttp { port, host } => {
-            // Serve HTTP
-            println!("Serving HTTP on {}:{}", host.as_deref().unwrap_or("localhost"), port);
-        }
-        Commands::ServeIPC { socket_path } => {
-            // Serve IPC
-            if let Some(path) = socket_path {
-                println!("Serving IPC on socket: {}", path);
+        Commands::Install { package } => {
+            let package_name = if let Some(name) = package {
+                name
             } else {
-                println!("Serving IPC on default socket");
-            }
+                TuiPrompts::select_package_to_install(&dotfiles_dir)?
+            };
+            install_package(&dotfiles_dir, &target_dir, &package_name)?;
         }
-        Commands::Apply { theme, variant } => {
-            // Apply theme
-            println!("Applying theme: {}", theme);
-            if let Some(variant) = variant {
-                println!("With variant: {}", variant);
-            }
+        Commands::Uninstall { package } => {
+            let package_name = if let Some(name) = package {
+                name
+            } else {
+                if let Some(selected) = TuiPrompts::select_package_to_uninstall()? {
+                    selected
+                } else {
+                    return Ok(());
+                }
+            };
+            uninstall_package(&target_dir, &package_name)?;
+        }
+        Commands::Build { name } => {
+            build_theme(&name)?;
         }
         Commands::List => {
-            // List themes
-            let themes = read_themes(path_manager).await?;
-            if themes.is_empty() {
-                println!("No themes available.");
-                //TODO: Offer to create one from current configs
-            } else {
-                println!("Available themes:");
-                for theme in themes {
-                    println!("- {}", theme);
-                }
-            }
+            list_packages(&dotfiles_dir)?;
+        }
+        Commands::Status => {
+            show_status(&dotfiles_dir, &target_dir)?;
         }
     }
 
     Ok(())
 }
 
-async fn read_themes(path_manager: PathManager) -> Result<Vec<String>> {
-    let mut themes = Vec::new();
+fn list_packages(dotfiles_dir: &PathBuf) -> Result<()> {
+    if !dotfiles_dir.exists() {
+        anyhow::bail!("Dotfiles directory {} does not exist", dotfiles_dir.display());
+    }
     
-    // TODO: Use async file reading if needed, but for now we can use sync since it's just listing directories
-    // TODO: Determine whether to follow symlinks or not
-    for entry in WalkDir::new(path_manager.theme_dir).into_iter().filter_map(Result::ok) {
-        if !entry.file_type().is_dir() && entry.file_name() == THEME_FILE {
-            
-            // Read the theme file for metadata and extract the theme name
-            let theme: Result<Table, _> = fs::read_to_string(entry.path())?.parse();
-            match theme {
-                Ok(toml) => {
-                    if let Some(theme_name) = toml.get("theme_name").and_then(|v| v.as_str()) {
-                        themes.push(theme_name.to_string());
-                        continue;
-                    }
-                    tracing::warn!("Theme file {} does not contain a valid theme_name", entry.path().display());  
-                }
-                Err(e) => {
-                    tracing::error!("Failed to parse theme file {}: {}", entry.path().display(), e);
+    let entries = fs::read_dir(dotfiles_dir)
+        .context("Failed to read dotfiles directory")?;
+    
+    let mut packages = Vec::new();
+    
+    for entry in entries {
+        let entry = entry?;
+        let path = entry.path();
+        
+        if path.is_dir() {
+            if let Some(name) = path.file_name().and_then(|n| n.to_str()) {
+                packages.push(name.to_string());
+            }
+        }
+    }
+    
+    if packages.is_empty() {
+        println!("No packages found in {}", dotfiles_dir.display());
+    } else {
+        println!("Available packages in {}:", dotfiles_dir.display());
+        packages.sort();
+        for package in packages {
+            println!("  {}", package);
+        }
+    }
+    
+    Ok(())
+}
+
+fn show_status(dotfiles_dir: &PathBuf, target_dir: &PathBuf) -> Result<()> {
+    // This is a simplified status check - we could make it more sophisticated
+    println!("Dotfiles directory: {}", dotfiles_dir.display());
+    println!("Target directory: {}", target_dir.display());
+    
+    // List all packages and show basic info
+    list_packages(dotfiles_dir)?;
+    
+    Ok(())
+}
+
+pub fn get_config_folders(config_dir: &PathBuf) -> Result<Vec<String>> {
+    if !config_dir.exists() {
+        return Ok(Vec::new());
+    }
+    
+    let mut folders = Vec::new();
+    let entries = fs::read_dir(config_dir)
+        .context("Failed to read config directory")?;
+    
+    for entry in entries {
+        let entry = entry?;
+        let path = entry.path();
+        
+        if path.is_dir() {
+            if let Some(name) = path.file_name().and_then(|n| n.to_str()) {
+                // Skip hyprkit directory and hidden directories
+                if name != "hyprkit" && !name.starts_with('.') {
+                    folders.push(name.to_string());
                 }
             }
         }
     }
+    
+    folders.sort();
+    Ok(folders)
+}
 
-    Ok(themes)
+pub fn get_available_packages(dotfiles_dir: &PathBuf) -> Result<Vec<String>> {
+    if !dotfiles_dir.exists() {
+        return Ok(Vec::new());
+    }
+    
+    let mut packages = Vec::new();
+    let entries = fs::read_dir(dotfiles_dir)
+        .context("Failed to read dotfiles directory")?;
+    
+    for entry in entries {
+        let entry = entry?;
+        let path = entry.path();
+        
+        if path.is_dir() {
+            if let Some(name) = path.file_name().and_then(|n| n.to_str()) {
+                // Skip hidden directories and active directory
+                if !name.starts_with('.') && name != "active" {
+                    packages.push(name.to_string());
+                }
+            }
+        }
+    }
+    
+    packages.sort();
+    Ok(packages)
+}
+
+pub fn get_active_packages() -> Result<Vec<String>> {
+    let home_dir = PathBuf::from(std::env::var("HOME").expect("HOME environment variable not set"));
+    let active_dir = home_dir.join(".config/hyprkit/active");
+    
+    if !active_dir.exists() {
+        return Ok(Vec::new());
+    }
+    
+    let mut packages = Vec::new();
+    let entries = fs::read_dir(&active_dir)
+        .context("Failed to read active directory")?;
+    
+    for entry in entries {
+        let entry = entry?;
+        let path = entry.path();
+        
+        if path.is_dir() {
+            if let Some(name) = path.file_name().and_then(|n| n.to_str()) {
+                packages.push(name.to_string());
+            }
+        }
+    }
+    
+    packages.sort();
+    Ok(packages)
 }
