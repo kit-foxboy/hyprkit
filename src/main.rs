@@ -23,7 +23,7 @@ struct Cli {
     target: Option<PathBuf>,
     
     #[command(subcommand)]
-    command: Commands
+    command: Commands,
 }
 
 #[derive(Subcommand)]
