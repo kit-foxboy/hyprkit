@@ -26,6 +26,7 @@ Session.vim
 .settings/
 .vs/
 .dir-locals.el
+.github/
 
 ## Tool
 .valgrindrc
@@ -101,3 +102,7 @@ Cargo.lock
 /flake.nix
 flake.lock
 /default.nix
+
+## Misc and notes
+*.md
+!README.md
