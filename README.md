@@ -1,221 +1,155 @@
-# 🦊 HyprKit - Hyprland Theme Manager
+# 🦊 HyprKit - Dotfile Theme Manager with Stack-Based Backups
 
-*"I DON'T KNOW! I'M STUPID AND GAY!"* - Kit, probably
+A Rust-based CLI tool for managing dotfile themes on Hyprland with safe backup and rollback capabilities that will hopefully serve as a foundation for rapid ricing
 
----
+## What is this?
 
-## What is this thingie?
+HyprKit is at the moment a basic bitch Hyprland theme manager with higher ambitions like being able to persist window rules, sizing, monitor or workspace assignment, etc. in your configs for persistance that doesn't override anything heavy. It provides a complete backup stack system, allowing you to safely switch between themes and roll back changes at any time. Built specifically for Hyprland users who enjoy experimenting and making their environment explode as frequently as I do. Will connect with the hyprkit shell for some really cool stuff planned  if I ever get my life and health even a hair under control. It's probably redudant and unremarkable with the other million dotfile managers but I had to learn rust for a job and love how DIY Linux is anyway. And I wrote it. That alone makes this a better investment in gold for your retirement*
 
-HyprKit is my egocentric attempt at making a Hyprland theme manager that (probably) doesn't suck completely. It's powered by bottled insanity, questionable life choices, and an unhealthy amount of UwU energy. 
+*Not legally binding, foxes lie
 
-Huge thanks to the amazing people working on **CachyOS** for their incredible distro and slick default theme, and to **mylinuxforwork** for the fantastic ML4W dotfiles that inspired this dubious endeavor!
+## 🚀 Key Features
 
-Does it work? *Probably!* Will it set your computer on fire? *Hopefully not!*
+- 🎨 **Theme Management** - Install, uninstall, and switch between dotfile themes
+- 📚 **Stack-Based Backups** - Every operation creates a backup for safe rollbacks, I am famous for appreciating stacked things after all
+- ⏪ **Undo System** - Undo any theme operation or reset to original configuration
+- 🔗 **GNU Stow Integration** - Reliable symlink management under the hood, (GNUwU)
+- � **JSON State Persistence** - Track current theme and backup history
+- 🎯 **Interactive TUI** - User-friendly prompts when theme not specified, (I almost called it the Hawk_Tui module so count your blessings >:3)
+- �️ **Theme Building** - Create new themes from existing configurations
+- 🦀 **An Excuse to learn Rust** - I wrote this bitch in rust even though only one client has ever needed me to know, I'll use any excuse to learn new stuff, even this funky language
+- 👀 **Future integration with a planned GUI** - Designed to be paired with a keyboard centric GUI for devs who want to keep them paws on the keys
 
-```
-         /\     /\  
-        (  \\_//  ) 
-         (  ^.^  ) < Let's make your desktop foxy!
-          \  v  /  
-           -----   
-```
+## 📖 Usage
 
-## Features (That Actually Work)
-
-- 🎨 **Theme Switching** - Apply themes instantly
-- 📋 **Active Theme Display** - See what disaster you're currently running
-- ⏪ **Backup & Restore** - Because indecisiveness is a way of life
-- 🌈 **Dynamic Window Shaders** - Each app gets its own vibe (NEW!)
-- 🎮 **Ambient Screen Effects** - From coding circuitry to arcade nostalgia
-- 🖥️ **Smart Shader Switching** - Your terminal looks techy, your games look retro
-- ✨ **ASCII Art** - Because why not add more visual noise?
-
-## Installation (AKA "How to let me infect your system with silliness")
-
-1. **Clone this beautiful disaster:**
-   ```bash
-   git clone <your-repo-url> ~/HyprKit
-   cd ~/HyprKit
-   ```
-
-2. **Execute order 66:**
-   ```bash
-   # Make scripts executable (because apparently that's important)
-   chmod +x hyprkit.sh
-   chmod +x scripts/set-theme.sh
-   ```
-
-3. **Run my masterpiece:**
-   ```bash
-   ./hyprkit.sh
-   ```
-
-## Usage
-
-### Interactive Mode (Recommended for LOSERS)
 ```bash
-./hyprkit.sh
+# Install a theme (with backup of current state)
+hyprkit install <theme-name>
+hyprkit install  # Interactive selection
+
+# Uninstall a theme (with backup)
+hyprkit uninstall <theme-name>  
+hyprkit uninstall  # Interactive selection
+
+# Build a new theme from current config
+hyprkit build <new-theme-name>
+
+# List available themes
+hyprkit list
+
+# Show current status and backup info
+hyprkit status
+
+# Undo the last operation (pops from backup stack)
+hyprkit undo
+
+# Reset to original configuration (clears all backups)
+hyprkit reset
 ```
 
-### Direct Commands (For the Brave/Stupid >:3)
+## 🔄 Backup System
+
+You know how stacks work, you squoosh one operation in and boing it out in reverse order to undo things:
+
+- **Every operation** creates a backup before making changes
+- **Undo system** lets you roll back the last operation
+- **Reset function** returns to your original configuration
+- **JSON persistence** maintains backup history across sessions
+- **ISO 8601 timestamps** ensure proper backup ordering
+
+Example workflow:
 ```bash
-# Set a theme (crossing fingers optional)
-./scripts/set-theme.sh <theme-name>
-
-# See what's currently active
-./scripts/set-theme.sh --active
-
-# Restore backup (when you inevitably break something)
-./scripts/set-theme.sh --restore
-
-# Get help (I hear that all the time!)
-./scripts/set-theme.sh --help
+# Start with original config
+hyprkit install nord-theme     # Backup created, nord-theme active
+hyprkit install dracula-theme  # Backup created, dracula-theme active  
+hyprkit undo                   # Back to nord-theme
+hyprkit undo                   # Back to original config
+hyprkit reset                  # Clear all backups, original config
 ```
 
-## Dynamic Shader System (The Cool New Toy!)
-
-NOPE NEVER MIND. While cool in theory, spending long periods of time with it revealed it to be more obnoxious than anything. Research into binding tints to a window or making it subtle enough to not get annoying after a while is required.
-
-~~**What the hell is this?** Kit got bored and decided each application should have its own personality through screen shaders. Because apparently normal desktop environments are for peasants.~~
-
-~~### Shader Personalities 🎭~~
-
-~~- **🌱 Cyber Green** - For coding apps (VS Code, Neovim, etc.)
-  - *Vibe*: Subtle circuitry patterns that whisper "I think I sort of remember the matrix"~~
-  
-~~- **⚡ Electric Blue** - For browsers (Firefox, Chrome, etc.)~~  
-  - *Vibe*: Blade Runner neon marquee because browsing should feel like a window into all things
-  
-~~- **🏆 Auroran Gold** - For file managers (Thunar, Nautilus, etc.)~~
-  ~~- *Vibe*: Luxury gradient that makes organizing files feel like a holographic projection~~
-  
-~~- **💜 Neon Purple** - For communication apps (Discord, Telegram, etc.)~~
-  ~~- *Vibe*: Mystical purple aura so you can chill when you trade furry [REDACTED] or roleplay [REDACTED]ing your homies~~
-  
-~~- **🎮 Ambient Pink** - For gaming apps (Steam, Lutris, etc.)~~
-  ~~- *Vibe*: Warm arcade cabinet glow, I'm not old, you are!~~
-  
-~~- **🖥️ Electric Cyan** - For terminals (Kitty, Alacritty, etc.)~~
-  ~~- *Vibe*: Clean terminal glow that thrums with potential~~
-
-~~### Using Slim Shader~~
-
-~~```bash~~
-~~# Start the shader monitoring daemon, first one I've ever made!~~
-~~./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh start~~
-
-~~# Check if the shader robot is actually working~~
-~~./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh status~~
-
-~~# Test shader on whatever window you're currently staring at~~
-~~./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh test~~
-
-~~# Make it stop, I'm admittedly a little ostentatious~~
-~~./dotfiles/auroran-neon/hypr/scripts/gradient-shader-monitor.sh stop~~
-
-~~**Pro Tip**: The system automatically detects what app you're using and applies the matching shader. It's like having a personal desktop stylist, but it's called a daemon so it's 100x cooler~~
-
-## Directory Structure (Leaves actual theme structure up to the designer)
+## 📁 Directory Structure
+(These trees are so annoying to type out wtf)
 
 ```
-HyprKit/
-├── hyprkit.sh               # Main interface (Start here)
-├── scripts/
-│   └── set-theme.sh         # The actual magic happens here
-├── themes/
-│   ├── cachyos/             # CachyOS team's beautiful default theme
-│   └── ml4w/                # ML4W dotfiles theme (mylinuxforwork)
-│       ├── theme.toml       # Theme metadata
-│       ├── hypr/            # Hyprland configs
-│       ├── waybar/          # Waybar configs  
-│       ├── wofi/            # Wofi configs
-│       └── ...              # Other config directories
-├── backup/                  # Your safety net
-└── current -> themes/...    # Symlink to active theme
+~/.config/hyprkit/
+├── state.json           # Current theme & backup stack
+├── backups/             # Backup storage
+│   ├── backup_001/
+│   └── backup_002/
+└── themes/              # Theme definitions
+    ├── nord-theme/
+    │   ├── hypr/
+    │   ├── waybar/  
+    │   └── kitty/
+    ├── dracula-theme/
+    │   ├── hypr/
+    │   ├── waybar/
+    │   └── rofi/
+    └── custom-theme/
+        └── ...
 ```
 
-## How It Works
+Each theme is a directory containing dotfile structures that will be symlinked to `~/.config/` using GNU Stow.
 
-1. **Symlink Magic** - Creates a `current` symlink pointing to your chosen theme
-2. **Config Backup** - Your existing configs get safely tucked away (with timestamps!)
-3. **Theme Application** - New configs get linked to `~/.config/`
-4. **Hyprctl Reload** - Hyprland gets told about the changes
-5. **Profit???** - Your desktop looks foxy (hopefully)
+## 🏗️ Architecture
 
-## Adding New Themes (Advanced Chaos Engineering)
+HyprKit is built with a modular Rust architecture:
 
-1. Create a new directory in `themes/`
-2. Add your config directories (hypr, waybar, wofi, etc.)
-3. Include a `theme.toml` file (currently decorative, but I have plans!)
-4. Cross your fingers and hope I don't break it
+- **Dependency Injection** - Trait-based design for testability
+- **Error Handling** - Comprehensive `anyhow` context chains  
+- **Modular Constants and Testing** - Organized string management and tests per module, (No idea if this is the ideal paradigm in rust but people argue about it a lot on forums and dev sites so I'm going to do what I think makes sense)
+- **Mock Testing** - Full test coverage with simulated stow operations, (Daddy always said it was a sin to kill a mockingtest)
+- **JSON State** - Persistent backup stack and theme tracking with room for metadata in the future as this project is still a chaotic spare time thing I'm making up very much on the spot
 
-Example theme structure:
-```
-themes/your-awesome-theme/
-├── theme.toml           # Theme info (name, description, etc.)
-├── hypr/               # Hyprland configuration
-├── waybar/             # Waybar configuration  
-├── wofi/               # Wofi configuration
-└── ...                 # Whatever else you need
-```
+## 🛠️ Requirements
 
-## Planned Features (Kit's Delusional Ambitions)
+- **GNU Stow** (`sudo pacman -S stow` on Arch, `sudo apt install stow` on Ubuntu/Debian) I'm on a variant of arch btw UwU
+- **Rust 2021** (for building from source)
 
-- 🎨 **Automatic GTK Theme Matching** - Because consistency is overrated
-- 📦 **Package Requirements & Auto-Install** - Let me handle your dependencies (what could go wrong giving my script root perms?)
-- 🔧 **Theme Validation** - Make sure themes aren't completely broken before applying them
-- 🌈 **More ASCII Art** - Because clearly there's not enough visual chaos
-- 🎵 **Sound Effects** - Because why shouldn't theme switching go "boop"?
+## 📦 Installation
 
-## Requirements (The Boring Stuff)
+```bash
+# Clone the repository
+git clone https://github.com/kit-foxboy/hyprkit.git
+cd hyprkit
 
-- **Hyprland** - Obviously, since this is a Hyprland theme manager
-- **GTK** - Optional if Gnome themes are on the menu
-- **Bash** - For running my beautiful scripts
-- **Working Brain Cells** - Optional, I doesn't have many either
+# Build and install
+cargo build --release
+sudo cp target/release/hyprkit /usr/local/bin/
 
-## FAQ
-
-**Q: Will this break my system?**
-A: Probably not! I tested it on my system and it only caught fire twice.
-
-**Q: Why so many fox references?**
-A: Because I'm a furry and that's where my world begins and ends most days
-
-**Q: Is Kit actually stupid and gay?**
-A: Well stupid and bisexual just doesn't sound as charming
-
-**Q: Can I add my own themes?**
-A: Please do! This isn't an ambitious or proprietary project, so go nuts
-
-**Q: What if something goes wrong?**
-A: Always do your own backups
-
-## Support and Contacts
-
-- 🐛 **Issues**: Open a GitHub issue and I'll ignore it with style
-- 💬 **Discussions**: Love a good chat
-- 📧 **Email**: foxykit@gmail.com is your best bet but my health is very poor
-- **Discord**: The best way to reach me, join the Flying Bucket Discord server: https://discord.gg/qC8pU4UST5
-- **Ko-fi**: If you want to see what creative endeavors I'm up to or even kick a few bucks my way: https://ko-fi.com/kitkabbit4209
-
-## License
-
-This project is licensed under the world famous "Do Whatever The Hell You Want, This is for Fun" license.
-
-```
-         /\     /\  
-        (  \\_//  ) 
-         (  o.o  ) < Thanks for reading this product of really bad insomnia!
-          \  ^  /    Now go make your desktop foxy! 🦊✨
-           -----   
+# Or install with cargo
+cargo install --path .
 ```
 
-**P.S.** - Jokes aside, I really do hope you enjoy this dumb little experiment
+## 🧪 Testing
 
-## Credits & Thanks 🙏
+The project includes comprehensive test coverage with mock dependency injection:
 
-- **CachyOS Team** - For their incredible distribution and the beautiful default theme that ships with it
-- **mylinuxforwork** - For the amazing ML4W dotfiles project that inspired much of this work: https://github.com/mylinuxforwork/dotfiles
-- **The Hyprland Community** - For building such an awesome compositor
-- **Everyone who contributes themes** - Well that is if anyone decides to X3
+```bash
+# Run all tests
+cargo test
+
+# Run specific module tests
+cargo test themes::
+cargo test file_ops::
+
+# Run with output
+cargo test -- --show-output
+```
+
+## 🎨 Example Themes
+
+Check the `themes/` directory for example theme structures. Each theme demonstrates different ways to organize Hyprland configurations, from minimal setups to complete desktop environments.
+
+## 🤝 Contributing
+
+HyprKit follows architectural patterns I'm not even sure are best practice in Rust, follow where it is, feel free to educate me where I done goofed
+
+- Dependency injection patterns
+- Error handling standards  
+- Per-module tests and constants
+- Learn as you go mentality
+
+## 📄 License
+
+This project is licensed under the do whatever the hell you want with it if you give me headpats and tell everyone I'm cool license

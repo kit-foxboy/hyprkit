@@ -1,0 +1,8 @@
+theme_name = "Auroran Neon"
+description = "A bright and exhuberant theme inspired by the Sweet theme and Beautyline icon designs all mixed with an auroran flair"
+version = "0.1"
+author = "Kit Kabbit"
+licence = "GPL-3.0"
+required_packages = ["waybar", "wofi", "wlogout", "hypridle", "hyprlock"]
+min_hyprland_version = "0.43"
+hypr_configs = ["dotfiles/hypr/hyprland.config", "dotfiles/hypr/hypridle.config", "dotfiles/hypr/hyprlock.conf", "dotfiles/hypr/config/"]
